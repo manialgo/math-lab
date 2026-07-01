@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Integration — MATH.LAB</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="wrap">
+    <a href="../index.html" class="brand">MATH<span class="dot">.</span>LAB</a>
+    <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="trigonometry.html">Trigonometry</a></li>
+      <li><a href="shapes.html">Shapes</a></li>
+      <li><a href="integration.html" class="active">Integration</a></li>
+      <li><a href="differentiation.html">Differentiation</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">Calculus domain</span>
+    <h1>Integration</h1>
+    <p class="lead">Pick a curve and a left/right boundary. The shaded region is the definite integral — the running total of the curve's height across that interval.</p>
+  </div>
+</header>
+
+<nav class="subnav">
+  <div class="wrap">
+    <button class="tab-btn active" data-tab="intro">Intro</button>
+    <button class="tab-btn" data-tab="work">Area Under the Curve</button>
+  </div>
+</nav>
+
+<section class="stage">
+  <div class="wrap">
+
+    <div id="tab-intro" class="tab-panel">
+      <div class="content-block" style="max-width:70ch;">
+        <h2>What a definite integral actually measures</h2>
+        <p>Split the interval between a and b into thin vertical strips, each with height equal to the curve at that point. Add up the areas of all those strips — as they get thinner and more numerous, that sum settles on a single number. That number is the definite integral, written:</p>
+        <div class="formula">∫ₐᵇ f(x) dx</div>
+        <p>It's the signed area between the curve and the x-axis: positive where the curve sits above the axis, negative where it dips below.</p>
+      </div>
+    </div>
+
+    <div id="tab-work" class="tab-panel" style="display:none;">
+      <div class="stage-grid">
+        <div class="panel">
+          <canvas id="int-canvas" width="440" height="380"></canvas>
+        </div>
+        <div>
+          <div class="control-row" style="margin-bottom:14px;">
+            <label>Function</label>
+            <div class="chip-row" id="fn-chips">
+              <button class="chip" data-fn="x2">x²</button>
+              <button class="chip" data-fn="sin">sin(x)</button>
+              <button class="chip" data-fn="cubic">x³/20</button>
+              <button class="chip" data-fn="linear">0.5x + 2</button>
+            </div>
+          </div>
+          <div class="control-row">
+            <label>Lower bound a <span id="a-val" class="mono">0</span></label>
+            <input type="range" id="a-slider" min="-10" max="10" value="0" step="0.2">
+          </div>
+          <div class="control-row">
+            <label>Upper bound b <span id="b-val" class="mono">3</span></label>
+            <input type="range" id="b-slider" min="-10" max="10" value="3" step="0.2">
+          </div>
+          <div class="readout">
+            <div class="stat"><div class="k">∫ f(x) dx</div><div class="v" id="int-value">0.00</div></div>
+          </div>
+          <div class="content-block">
+            <h3>Approximated with Simpson's rule</h3>
+            <p style="font-size:0.85rem;">The shaded area is computed numerically over many strips — the same idea taught with rectangles, just refined.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>MATH.LAB — Integration</span>
+    <a href="../index.html">← Back to home</a>
+  </div>
+</footer>
+
+<script src="../js/nav.js"></script>
+<script src="../js/tabs.js"></script>
+<script src="../js/integration.js"></script>
+</body>
+</html>
