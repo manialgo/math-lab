@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equations & Roots — MATH.LAB</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="wrap">
+      <a href="../index.html" class="brand">MATH<span class="dot">.</span>LAB</a>
+      <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="trigonometry.html">Trigonometry</a></li>
+        <li><a href="shapes.html">Shapes</a></li>
+        <li><a href="integration.html">Integration</a></li>
+        <li><a href="differentiation.html">Differentiation</a></li>
+        <li><a href="equations.html" class="active">Equations</a></li>
+        <li><a href="pythagoras.html">Pythagoras</a></li>
+        <li><a href="number-patterns.html">Number Patterns</a></li>
+        <li><a href="definmath.html">DefinMath</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">Algebra domain</span>
+      <h1>Equations & Roots</h1>
+      <p class="lead">Before linear, quadratic, or cubic equations, there's one shared idea underneath all of them:
+        finding the value that makes a statement true. This page is the starting point — pick a branch below once you've
+        got the idea.</p>
+    </div>
+  </header>
+
+  <nav class="subnav">
+    <div class="wrap">
+      <button class="tab-btn active" data-tab="intro">Intro</button>
+      <button class="tab-btn" data-tab="history">History & Importance</button>
+      <button class="tab-btn" data-tab="explore">Explore Types</button>
+    </div>
+  </nav>
+
+  <section class="stage">
+    <div class="wrap">
+
+      <div id="tab-intro" class="tab-panel">
+        <div class="content-block" style="max-width:72ch;">
+          <h2>What is an equation?</h2>
+          <p>An <strong>equation</strong> is a mathematical statement that says two expressions are equal, joined by an
+            "=" sign — for example, <span class="mono">2x + 3 = 11</span>. It's a claim, not yet a fact: it's only true
+            for certain values of the unknown (here, x).</p>
+          <h3>What is a root?</h3>
+          <p>A <strong>root</strong> (or <strong>solution</strong>) of an equation is any value of the unknown that
+            makes the statement true when substituted in. For <span class="mono">2x + 3 = 11</span>, substituting x = 4
+            gives 2(4) + 3 = 11, which checks out — so x = 4 is a root.</p>
+          <p>An equation can have one root, several roots, infinitely many, or none at all, depending on its shape. A
+            big part of algebra is figuring out how many roots to expect and how to find them systematically, rather
+            than by guessing.</p>
+          <h3>Worked example</h3>
+          <div class="formula">3x − 7 = 2</div>
+          <p>Add 7 to both sides: <span class="mono">3x = 9</span>. Divide both sides by 3: <span class="mono">x =
+              3</span>. Check: 3(3) − 7 = 2 ✓ — so x = 3 is the root.</p>
+        </div>
+      </div>
+
+      <div id="tab-history" class="tab-panel" style="display:none;">
+        <div class="content-block" style="max-width:72ch;">
+          <h2>A short history</h2>
+          <p>Equation-solving is one of the oldest branches of mathematics. Babylonian mathematicians (around 2000 BCE)
+            were already solving what we'd now call quadratic equations using geometric methods, though they had no
+            algebraic notation for it. Ancient Egyptian and Chinese texts show similar problems solved by trial methods
+            and proportional reasoning.</p>
+          <p>The word "algebra" itself comes from <em>al-jabr</em>, a term used by the Persian mathematician
+            Al-Khwarizmi in the 9th century, describing the process of moving a term from one side of an equation to the
+            other. His systematic treatment of linear and quadratic equations laid the groundwork for algebra as a
+            formal discipline.</p>
+          <p>Cubic equations resisted a general algebraic solution for far longer — it wasn't until the 16th century,
+            through the work of Italian mathematicians including Scipione del Ferro, Niccolò Tartaglia, and Gerolamo
+            Cardano, that a general formula for cubic roots was published.</p>
+          <h3>Why it matters</h3>
+          <p>Equations are how quantitative relationships get expressed and solved — from working out how long a journey
+            takes, to modelling projectile motion, to balancing a budget, to designing the curves an engineer needs for
+            a bridge. Every one of those problems eventually reduces to: here's a relationship, now find the unknown
+            that satisfies it. That's exactly what solving an equation does.</p>
+        </div>
+      </div>
+
+      <div id="tab-explore" class="tab-panel" style="display:none;">
+        <div class="content-block">
+          <h2>Pick a branch</h2>
+          <p style="max-width:60ch;">Each of these builds on the idea above, moving to equations with more terms and
+            more roots.</p>
+          <div class="card-grid" style="margin-top:24px;">
+            <a href="linear-equations.html" class="card">
+              <span class="glyph">x</span>
+              <h3>Linear Equations</h3>
+              <p>One degree, one root. The simplest case — a straight line crossing the x-axis exactly once.</p>
+            </a>
+            <a href="quadratic-equations.html" class="card">
+              <span class="glyph">x²</span>
+              <h3>Quadratic Equations</h3>
+              <p>Two degree, up to two roots. A parabola that may cross the x-axis twice, once, or not at all.</p>
+            </a>
+            <a href="cubic-equations.html" class="card">
+              <span class="glyph">x³</span>
+              <h3>Cubic Equations</h3>
+              <p>Three degree, up to three roots. An S-shaped curve, and the first case that resisted algebra for
+                centuries.</p>
+            </a>
+            <a href="polynomials.html" class="card">
+              <span class="glyph">xⁿ</span>
+              <h3>Polynomials</h3>
+              <p>The general case, and the tool that ties them all together: synthetic division.</p>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>MATH.LAB — Equations & Roots</span>
+      <a href="../index.html">← Back to home</a>
+    </div>
+  </footer>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/tabs.js"></script>
+</body>
+
+</html>

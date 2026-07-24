@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Number Patterns — MATH.LAB</title>
+<meta name="description" content="Arithmetic, Geometric and Harmonic Progressions — nth term, sums, infinite series, and interactive calculators.">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* ── page-specific additions ── */
+  .history-card {
+    border-left: 3px solid var(--gold);
+    background: rgba(244,237,226,0.03);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 18px 20px;
+    margin: 14px 0;
+  }
+  .history-card p { margin-bottom: 0.5em; }
+  .history-card p:last-child { margin-bottom: 0; }
+
+  .seq-vis {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 14px 0;
+  }
+  .seq-vis .term {
+    border: var(--border);
+    border-radius: var(--radius);
+    padding: 6px 12px;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    background: var(--navy-deep);
+  }
+  .seq-vis .term span { color: var(--chalk-dim); font-size: 0.7rem; }
+  .seq-vis .term strong { color: var(--cyan); }
+  .seq-vis .term.gold strong { color: var(--gold); }
+
+  /* formula rows inside formula box */
+  .formula-row {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: var(--navy-deep);
+    border: var(--border);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    margin-bottom: 8px;
+  }
+  .formula-row:last-child { margin-bottom: 0; }
+  .formula-row .f-label {
+    font-family: var(--mono); font-size: 0.76rem;
+    color: var(--chalk-dim); min-width: 160px; padding-top: 1px;
+  }
+  .formula-row .f-eq {
+    font-family: var(--mono); font-size: 0.96rem;
+    color: var(--gold); word-break: break-all;
+  }
+
+  /* example blocks */
+  .example-block {
+    background: rgba(111,194,192,0.05);
+    border: 1px solid rgba(111,194,192,0.2);
+    border-radius: 8px; padding: 18px 20px; margin-top: 14px;
+  }
+  .example-block + .example-block { margin-top: 12px; }
+  .example-block .ex-label {
+    font-family: var(--mono); font-size: 0.7rem; color: var(--cyan);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;
+  }
+  .example-block .ex-q {
+    font-weight: 600; color: var(--chalk); font-size: 0.94rem; margin-bottom: 8px;
+  }
+  .step-list { display: flex; flex-direction: column; gap: 8px; }
+  .step-list li {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 0.88rem; color: var(--chalk-dim);
+    list-style: none;
+  }
+  .step-num {
+    font-family: var(--mono); color: var(--cyan);
+    min-width: 22px; font-size: 0.85rem; flex-shrink: 0;
+  }
+  .ex-result {
+    font-family: var(--mono); font-size: 0.88rem; color: #5ce6a0;
+    margin-top: 10px; background: rgba(0,0,0,.2);
+    padding: 6px 12px; border-radius: var(--radius); display: inline-block;
+  }
+
+  /* complex example */
+  .complex-block {
+    background: rgba(232,182,90,0.04);
+    border: 1px solid rgba(232,182,90,0.2);
+    border-radius: 8px; padding: 18px 20px; margin-top: 14px;
+  }
+  .complex-block .cx-label {
+    font-family: var(--mono); font-size: 0.7rem; color: var(--gold);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;
+  }
+  .complex-block .step-num { color: var(--gold); }
+  .complex-block .ex-result { color: var(--gold); }
+
+  /* special case */
+  .special-case {
+    background: rgba(217,135,112,0.06);
+    border: 1px solid rgba(217,135,112,0.25);
+    border-radius: 8px; padding: 18px 20px; margin-top: 14px;
+  }
+  .special-case .sc-label {
+    font-family: var(--mono); font-size: 0.7rem; color: var(--rose);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;
+  }
+  .special-case h3 { color: var(--rose); font-size: 1rem; margin-bottom: 8px; }
+  .special-case .sc-formula {
+    font-family: var(--mono); font-size: 0.96rem; color: var(--chalk);
+    background: rgba(0,0,0,.25); border-radius: var(--radius);
+    padding: 8px 14px; display: inline-block; margin: 6px 0;
+  }
+
+  /* calculator cards */
+  .calc-card {
+    border: var(--border); border-radius: 10px;
+    background: rgba(244,237,226,0.02); padding: 24px; margin-top: 18px;
+  }
+  .calc-card .cc-title {
+    font-family: var(--serif); font-size: 1.05rem; color: var(--gold);
+    margin-bottom: 14px;
+  }
+  .calc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px,1fr));
+    gap: 10px; margin-bottom: 14px;
+  }
+  .calc-field label {
+    display: block; font-family: var(--mono); font-size: 0.7rem;
+    color: var(--chalk-dim); text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 4px;
+  }
+  .calc-field input {
+    width: 100%; background: var(--navy-deep); border: var(--border);
+    border-radius: var(--radius); padding: 8px 10px;
+    color: var(--chalk); font-family: var(--mono); font-size: 0.9rem;
+    outline: none; transition: border-color .2s;
+  }
+  .calc-field input:focus { border-color: var(--gold-dim); }
+  .calc-btn {
+    background: var(--gold); color: var(--navy-deep); border: none;
+    border-radius: var(--radius); padding: 10px 22px;
+    font-family: var(--sans); font-weight: 600; font-size: 0.88rem;
+    cursor: pointer; transition: opacity .2s; margin-right: 8px;
+  }
+  .calc-btn:hover { opacity: 0.85; }
+  .calc-btn.secondary {
+    background: transparent; color: var(--chalk-dim);
+    border: var(--border);
+  }
+  .calc-btn.secondary:hover { color: var(--chalk); border-color: var(--chalk-dim); }
+  .calc-output {
+    margin-top: 14px; background: rgba(0,0,0,.25);
+    border-radius: var(--radius); padding: 14px 16px;
+    font-family: var(--mono); font-size: 0.85rem;
+    line-height: 1.9; display: none;
+  }
+  .calc-output .out-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px; }
+  .calc-output .out-label { color: var(--chalk-dim); }
+  .calc-output .out-val { color: var(--cyan); }
+  .calc-output .out-val.green { color: #5ce6a0; }
+  .calc-output .out-val.rose { color: var(--rose); }
+  .calc-output .seq-line { color: var(--chalk-dim); font-size: 0.78rem; margin-top: 8px; word-break: break-all; }
+  .calc-output .seq-line span { color: var(--chalk); }
+
+  /* section helper */
+  .section-block { margin-top: 36px; }
+  .section-block:first-child { margin-top: 0; }
+
+  /* mode toggle for "find n" */
+  .mode-tabs { display: flex; gap: 0; margin-bottom: 14px; }
+  .mode-tab {
+    padding: 7px 16px; font-family: var(--mono); font-size: 0.8rem;
+    cursor: pointer; border: var(--border); background: none;
+    color: var(--chalk-dim); transition: all .15s;
+  }
+  .mode-tab:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+  .mode-tab:last-child  { border-radius: 0 var(--radius) var(--radius) 0; border-left: none; }
+  .mode-tab.active { background: var(--gold); color: var(--navy-deep); border-color: var(--gold); font-weight: 600; }
+
+  .mode-panel { display: none; }
+  .mode-panel.active { display: block; }
+
+  .divider { height: 1px; background: var(--grid-line); margin: 32px 0; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="wrap">
+    <a href="../index.html" class="brand">MATH<span class="dot">.</span>LAB</a>
+    <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="trigonometry.html">Trigonometry</a></li>
+      <li><a href="shapes.html">Shapes</a></li>
+      <li><a href="integration.html">Integration</a></li>
+      <li><a href="differentiation.html">Differentiation</a></li>
+      <li><a href="equations.html">Equations</a></li>
+      <li><a href="pythagoras.html">Pythagoras</a></li>
+      <li><a href="number-patterns.html" class="active">Number Patterns</a></li>
+      <li><a href="definmath.html">DefinMath</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">Number Patterns</span>
+    <h1>Progressions & Series</h1>
+    <p class="lead">Three patterns that build the backbone of sequences — arithmetic, geometric, and harmonic. Explore their history, formulae, and examples, then try the interactive calculators.</p>
+  </div>
+</header>
+
+<nav class="subnav">
+  <div class="wrap">
+    <button class="tab-btn active" data-tab="ap">Arithmetic Progression</button>
+    <button class="tab-btn" data-tab="gp">Geometric Progression</button>
+    <button class="tab-btn" data-tab="hp">Harmonic Progression</button>
+  </div>
+</nav>
+
+<section class="stage">
+  <div class="wrap">
+
+    <!-- ═══════════════════ AP ═══════════════════ -->
+    <div id="tab-ap" class="tab-panel">
+
+      <div class="section-block">
+        <span class="eyebrow">// number patterns → AP</span>
+        <h2>Arithmetic Progression</h2>
+        <p class="lead" style="font-size:1rem">A sequence where each term is obtained by <em>adding the same fixed number</em> to the previous term. Simple, powerful, and everywhere.</p>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="section-block">
+        <span class="step-label">Origin &amp; History</span>
+        <h3>Where did it come from?</h3>
+        <div class="history-card">
+          <p>Arithmetic progressions trace back to ancient <strong style="color:var(--chalk)">Egypt and Babylon</strong> (c. 1800 BCE), where scribes used them to divide grain fairly and plan irrigation calendars. The famous Rhind Mathematical Papyrus contains AP problems solved nearly 4,000 years ago.</p>
+          <p>Greek mathematicians formalised the idea — <strong style="color:var(--chalk)">Euclid</strong> (c. 300 BCE) discussed arithmetic sequences in <em>Elements</em>. But the most legendary story belongs to <strong style="color:var(--chalk)">Carl Friedrich Gauss</strong> (1777–1855), who as a child summed 1 + 2 + … + 100 = 5050 in seconds by pairing the ends: 1+100, 2+99, … — the very insight behind today's sum formula.</p>
+        </div>
+      </div>
+
+      <!-- INTRO -->
+      <div class="section-block">
+        <span class="step-label">Introduction</span>
+        <h3>The core idea</h3>
+        <p>Imagine saving ₹100 on Monday, ₹200 on Tuesday, ₹300 on Wednesday… You add a fixed amount (₹100) each day. That's an AP.</p>
+        <div class="seq-vis" id="ap-intro-seq"></div>
+        <p>The fixed amount added each time is called the <strong style="color:var(--cyan)">common difference (d)</strong>. The first term is <strong style="color:var(--gold)">a</strong>.</p>
+      </div>
+
+      <!-- FORMULAE -->
+      <div class="section-block">
+        <span class="step-label">Key Formulae</span>
+        <h3>nth Term &amp; Sum</h3>
+        <div class="panel" style="padding:18px 20px">
+          <p style="font-family:var(--mono);font-size:0.72rem;color:var(--cyan);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px">Arithmetic Progression — a, a+d, a+2d, …</p>
+          <div class="formula-row"><span class="f-label">nth term (Tₙ)</span><span class="f-eq">Tₙ = a + (n − 1) × d</span></div>
+          <div class="formula-row"><span class="f-label">Sum of n terms (Sₙ)</span><span class="f-eq">Sₙ = (n / 2) × [2a + (n − 1) × d]</span></div>
+          <div class="formula-row"><span class="f-label">Alternate sum form</span><span class="f-eq">Sₙ = (n / 2) × (first + last term)</span></div>
+          <div class="formula-row"><span class="f-label">Common difference</span><span class="f-eq">d = Tₙ − Tₙ₋₁ (constant for all n)</span></div>
+          <div class="formula-row" style="border-color:rgba(111,194,192,.4)"><span class="f-label" style="color:var(--cyan)">Find n (given Tₙ)</span><span class="f-eq" style="color:var(--cyan)">n = (Tₙ − a) / d + 1</span></div>
+          <div class="formula-row" style="border-color:rgba(111,194,192,.4)"><span class="f-label" style="color:var(--cyan)">Find n (given Sₙ)</span><span class="f-eq" style="color:var(--cyan)">solve: n² × d/2 + n × (a − d/2) − Sₙ = 0</span></div>
+        </div>
+      </div>
+
+      <!-- SIMPLE EXAMPLE -->
+      <div class="section-block">
+        <span class="step-label">Simple Example</span>
+        <h3>Step-by-step walkthrough</h3>
+        <div class="example-block">
+          <div class="ex-label">📘 Simple Example</div>
+          <div class="ex-q">AP: 3, 7, 11, 15, … — find the 10th term and sum of first 10 terms.</div>
+          <ul class="step-list">
+            <li><span class="step-num">①</span><span>Identify: a = 3, d = 7 − 3 = 4</span></li>
+            <li><span class="step-num">②</span><span>T₁₀ = 3 + (10 − 1) × 4 = 3 + 36 = <strong style="color:var(--chalk)">39</strong></span></li>
+            <li><span class="step-num">③</span><span>S₁₀ = (10/2) × [2×3 + 9×4] = 5 × 42 = <strong style="color:var(--chalk)">210</strong></span></li>
+            <li><span class="step-num">④</span><span>Check: (n/2)(first + last) = 5 × (3 + 39) = 210 ✓</span></li>
+          </ul>
+          <div class="ex-result">T₁₀ = 39 &nbsp;|&nbsp; S₁₀ = 210</div>
+        </div>
+      </div>
+
+      <!-- COMPLEX EXAMPLE -->
+      <div class="section-block">
+        <span class="step-label">Complex Example</span>
+        <h3>A harder problem</h3>
+        <div class="complex-block">
+          <div class="cx-label">🔑 Complex Example</div>
+          <div class="ex-q">The 5th term of an AP is 23 and its 12th term is 51. Find the AP and the sum of its first 20 terms.</div>
+          <ul class="step-list">
+            <li><span class="step-num" style="color:var(--gold)">①</span><span>T₅ = a + 4d = 23 … (i)</span></li>
+            <li><span class="step-num" style="color:var(--gold)">②</span><span>T₁₂ = a + 11d = 51 … (ii)</span></li>
+            <li><span class="step-num" style="color:var(--gold)">③</span><span>Subtract (i) from (ii): 7d = 28 → d = 4</span></li>
+            <li><span class="step-num" style="color:var(--gold)">④</span><span>From (i): a = 23 − 16 = 7</span></li>
+            <li><span class="step-num" style="color:var(--gold)">⑤</span><span>AP: 7, 11, 15, 19, 23, …</span></li>
+            <li><span class="step-num" style="color:var(--gold)">⑥</span><span>S₂₀ = (20/2)[2×7 + 19×4] = 10 × 90 = <strong style="color:var(--chalk)">900</strong></span></li>
+          </ul>
+          <div class="ex-result" style="color:var(--gold)">AP: 7, 11, 15, … &nbsp;|&nbsp; S₂₀ = 900</div>
+        </div>
+      </div>
+
+      <!-- AP CALCULATOR -->
+      <div class="section-block">
+        <span class="step-label">Try it yourself</span>
+        <h3>AP Calculator</h3>
+        <div class="calc-card">
+          <div class="cc-title">Compute any AP — forward or reverse</div>
+
+          <div class="mode-tabs">
+            <button class="mode-tab active" onclick="apMode('forward',this)">Find Tₙ &amp; Sₙ</button>
+            <button class="mode-tab" onclick="apMode('find-n-tn',this)">Find n (given Tₙ)</button>
+            <button class="mode-tab" onclick="apMode('find-n-sn',this)">Find n (given Sₙ)</button>
+          </div>
+
+          <!-- Forward mode -->
+          <div class="mode-panel active" id="ap-fwd">
+            <div class="calc-grid">
+              <div class="calc-field"><label>First term (a)</label><input type="number" id="ap-a" value="3"></div>
+              <div class="calc-field"><label>Common diff (d)</label><input type="number" id="ap-d" value="4"></div>
+              <div class="calc-field"><label>No. of terms (n)</label><input type="number" id="ap-n" value="10" min="1"></div>
+            </div>
+            <button class="calc-btn" onclick="calcAP()">Calculate →</button>
+            <button class="calc-btn secondary" onclick="clearOut('ap-output')">Clear</button>
+          </div>
+
+          <!-- Find n given Tn -->
+          <div class="mode-panel" id="ap-fn-tn">
+            <div class="calc-grid">
+              <div class="calc-field"><label>First term (a)</label><input type="number" id="ap2-a" value="3"></div>
+              <div class="calc-field"><label>Common diff (d)</label><input type="number" id="ap2-d" value="4"></div>
+              <div class="calc-field"><label>Term value (Tₙ)</label><input type="number" id="ap2-tn" value="39"></div>
+            </div>
+            <button class="calc-btn" onclick="calcAPfindN_Tn()">Find n →</button>
+            <button class="calc-btn secondary" onclick="clearOut('ap-output')">Clear</button>
+          </div>
+
+          <!-- Find n given Sn -->
+          <div class="mode-panel" id="ap-fn-sn">
+            <div class="calc-grid">
+              <div class="calc-field"><label>First term (a)</label><input type="number" id="ap3-a" value="3"></div>
+              <div class="calc-field"><label>Common diff (d)</label><input type="number" id="ap3-d" value="4"></div>
+              <div class="calc-field"><label>Sum value (Sₙ)</label><input type="number" id="ap3-sn" value="210"></div>
+            </div>
+            <button class="calc-btn" onclick="calcAPfindN_Sn()">Find n →</button>
+            <button class="calc-btn secondary" onclick="clearOut('ap-output')">Clear</button>
+          </div>
+
+          <div class="calc-output" id="ap-output"></div>
+        </div>
+      </div>
+
+    </div><!-- /tab-ap -->
+
+    <!-- ═══════════════════ GP ═══════════════════ -->
+    <div id="tab-gp" class="tab-panel" style="display:none">
+
+      <div class="section-block">
+        <span class="eyebrow">// number patterns → GP</span>
+        <h2>Geometric Progression</h2>
+        <p class="lead" style="font-size:1rem">A sequence where each term is obtained by <em>multiplying the previous term by a fixed ratio</em>. Nature, finance, and physics love this pattern.</p>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="section-block">
+        <span class="step-label">Origin &amp; History</span>
+        <h3>Where did it come from?</h3>
+        <div class="history-card">
+          <p>Geometric progressions appear in some of the oldest recorded mathematics. Ancient <strong style="color:var(--chalk)">Indian</strong> texts like the <em>Arthashastra</em> (c. 300 BCE) computed compound interest using GP principles. In medieval times, <strong style="color:var(--chalk)">Leonardo of Pisa (Fibonacci)</strong> explored GP-related ideas in <em>Liber Abaci</em> (1202).</p>
+          <p>The famous <em>wheat and chessboard</em> legend captures the explosive nature of GPs: placing 1 grain on square 1, 2 on square 2, 4 on square 3 … produces 2⁶³ ≈ 9.2 × 10¹⁸ grains on the last square — more wheat than has ever existed. <strong style="color:var(--chalk)">Euclid</strong> proved the sum formula in <em>Elements</em> Book IX, making this one of the oldest closed-form series results in mathematics.</p>
+        </div>
+      </div>
+
+      <!-- INTRO -->
+      <div class="section-block">
+        <span class="step-label">Introduction</span>
+        <h3>The core idea</h3>
+        <p>A single bacterium divides into 2, then 4, then 8, then 16… Each step multiplies by the same fixed number. That's a GP.</p>
+        <div class="seq-vis" id="gp-intro-seq"></div>
+        <p>The fixed multiplier is called the <strong style="color:var(--cyan)">common ratio (r)</strong>. The first term is <strong style="color:var(--gold)">a</strong>.</p>
+      </div>
+
+      <!-- FORMULAE -->
+      <div class="section-block">
+        <span class="step-label">Key Formulae</span>
+        <h3>nth Term &amp; Sum</h3>
+        <div class="panel" style="padding:18px 20px">
+          <p style="font-family:var(--mono);font-size:0.72rem;color:var(--cyan);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px">Geometric Progression — a, ar, ar², ar³, …</p>
+          <div class="formula-row"><span class="f-label">nth term (Tₙ)</span><span class="f-eq">Tₙ = a × rⁿ⁻¹</span></div>
+          <div class="formula-row"><span class="f-label">Sum (r ≠ 1, r &gt; 1)</span><span class="f-eq">Sₙ = a × (rⁿ − 1) / (r − 1)</span></div>
+          <div class="formula-row"><span class="f-label">Sum (|r| &lt; 1)</span><span class="f-eq">Sₙ = a × (1 − rⁿ) / (1 − r)</span></div>
+          <div class="formula-row"><span class="f-label">Sum when r = 1</span><span class="f-eq">Sₙ = n × a</span></div>
+          <div class="formula-row"><span class="f-label">Common ratio</span><span class="f-eq">r = Tₙ / Tₙ₋₁ (constant for all n)</span></div>
+          <div class="formula-row" style="border-color:rgba(111,194,192,.4)"><span class="f-label" style="color:var(--cyan)">Find n (given Tₙ)</span><span class="f-eq" style="color:var(--cyan)">n = log(Tₙ / a) / log(r) + 1</span></div>
+        </div>
+      </div>
+
+      <!-- SPECIAL CASE — INFINITE SUM -->
+      <div class="section-block">
+        <span class="step-label">Special Case</span>
+        <h3>Sum to Infinity</h3>
+        <div class="special-case">
+          <div class="sc-label">∞ Special Case — Infinite GP</div>
+          <h3>When does an infinite GP have a finite sum?</h3>
+          <p>If the common ratio <strong style="color:var(--rose)">|r| &lt; 1</strong>, each successive term gets smaller, eventually approaching zero. The entire infinite series converges to a finite number:</p>
+          <div class="sc-formula">S∞ = a / (1 − r) &nbsp;&nbsp; where |r| &lt; 1</div>
+          <p style="margin-top:10px">If |r| ≥ 1, the series diverges — the sum grows without bound (or oscillates), so S∞ does not exist.</p>
+          <p>This is the mathematical secret behind Zeno's paradox: Achilles can run ½ metre, then ¼ m, then ⅛ m… infinitely many steps, yet covers exactly 1 metre total.</p>
+        </div>
+      </div>
+
+      <!-- SIMPLE EXAMPLES -->
+      <div class="section-block">
+        <span class="step-label">Simple Example</span>
+        <h3>Step-by-step walkthrough</h3>
+        <div class="example-block">
+          <div class="ex-label">📘 Simple Example</div>
+          <div class="ex-q">GP: 2, 6, 18, 54, … — find T₆ and S₆.</div>
+          <ul class="step-list">
+            <li><span class="step-num">①</span><span>Identify: a = 2, r = 6 ÷ 2 = 3</span></li>
+            <li><span class="step-num">②</span><span>T₆ = 2 × 3⁵ = 2 × 243 = <strong style="color:var(--chalk)">486</strong></span></li>
+            <li><span class="step-num">③</span><span>S₆ = 2 × (3⁶ − 1) / (3 − 1) = 2 × 728 / 2 = <strong style="color:var(--chalk)">728</strong></span></li>
+          </ul>
+          <div class="ex-result">T₆ = 486 &nbsp;|&nbsp; S₆ = 728</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-label">📘 Infinite GP Example</div>
+          <div class="ex-q">GP: 8, 4, 2, 1, ½, … — find S∞.</div>
+          <ul class="step-list">
+            <li><span class="step-num">①</span><span>a = 8, r = 4 ÷ 8 = 0.5 → |r| = 0.5 &lt; 1 ✓</span></li>
+            <li><span class="step-num">②</span><span>S∞ = 8 / (1 − 0.5) = 8 / 0.5 = <strong style="color:var(--chalk)">16</strong></span></li>
+            <li><span class="step-num">③</span><span>Every term halves — yet the total never exceeds 16.</span></li>
+          </ul>
+          <div class="ex-result">S∞ = 16</div>
+        </div>
+      </div>
+
+      <!-- COMPLEX EXAMPLE -->
+      <div class="section-block">
+        <span class="step-label">Complex Example</span>
+        <h3>A harder problem</h3>
+        <div class="complex-block">
+          <div class="cx-label">🔑 Complex Example</div>
+          <div class="ex-q">The 3rd term of a GP is 45 and the 6th term is 1215. Find a, r, S₈, and whether S∞ exists.</div>
+          <ul class="step-list">
+            <li><span class="step-num" style="color:var(--gold)">①</span><span>T₃ = ar² = 45 … (i) &nbsp;&nbsp; T₆ = ar⁵ = 1215 … (ii)</span></li>
+            <li><span class="step-num" style="color:var(--gold)">②</span><span>Divide (ii) ÷ (i): r³ = 27 → r = 3</span></li>
+            <li><span class="step-num" style="color:var(--gold)">③</span><span>From (i): a × 9 = 45 → a = 5</span></li>
+            <li><span class="step-num" style="color:var(--gold)">④</span><span>GP: 5, 15, 45, 135, …</span></li>
+            <li><span class="step-num" style="color:var(--gold)">⑤</span><span>S₈ = 5 × (3⁸ − 1) / (3 − 1) = 5 × 6560 / 2 = <strong style="color:var(--chalk)">16 400</strong></span></li>
+            <li><span class="step-num" style="color:var(--gold)">⑥</span><span>|r| = 3 &gt; 1 → <strong style="color:var(--rose)">S∞ does not exist</strong> (series diverges)</span></li>
+          </ul>
+          <div class="ex-result" style="color:var(--gold)">a = 5, r = 3 &nbsp;|&nbsp; S₈ = 16 400 &nbsp;|&nbsp; S∞ → ∞</div>
+        </div>
+      </div>
+
+      <!-- GP CALCULATOR -->
+      <div class="section-block">
+        <span class="step-label">Try it yourself</span>
+        <h3>GP Calculator</h3>
+        <div class="calc-card">
+          <div class="cc-title">Compute any GP — forward or reverse</div>
+
+          <div class="mode-tabs">
+            <button class="mode-tab active" onclick="gpMode('forward',this)">Find Tₙ &amp; Sₙ</button>
+            <button class="mode-tab" onclick="gpMode('find-n-tn',this)">Find n (given Tₙ)</button>
+          </div>
+
+          <!-- Forward mode -->
+          <div class="mode-panel active" id="gp-fwd">
+            <div class="calc-grid">
+              <div class="calc-field"><label>First term (a)</label><input type="number" id="gp-a" value="2"></div>
+              <div class="calc-field"><label>Common ratio (r)</label><input type="number" id="gp-r" value="3" step="0.1"></div>
+              <div class="calc-field"><label>No. of terms (n)</label><input type="number" id="gp-n" value="6" min="1"></div>
+            </div>
+            <button class="calc-btn" onclick="calcGP()">Calculate →</button>
+            <button class="calc-btn secondary" onclick="clearOut('gp-output')">Clear</button>
+          </div>
+
+          <!-- Find n given Tn -->
+          <div class="mode-panel" id="gp-fn-tn">
+            <div class="calc-grid">
+              <div class="calc-field"><label>First term (a)</label><input type="number" id="gp2-a" value="2"></div>
+              <div class="calc-field"><label>Common ratio (r)</label><input type="number" id="gp2-r" value="3" step="0.1"></div>
+              <div class="calc-field"><label>Term value (Tₙ)</label><input type="number" id="gp2-tn" value="486"></div>
+            </div>
+            <button class="calc-btn" onclick="calcGPfindN()">Find n →</button>
+            <button class="calc-btn secondary" onclick="clearOut('gp-output')">Clear</button>
+          </div>
+
+          <div class="calc-output" id="gp-output"></div>
+        </div>
+      </div>
+
+    </div><!-- /tab-gp -->
+
+    <!-- ═══════════════════ HP ═══════════════════ -->
+    <div id="tab-hp" class="tab-panel" style="display:none">
+
+      <div class="section-block">
+        <span class="eyebrow">// number patterns → HP</span>
+        <h2>Harmonic Progression</h2>
+        <p class="lead" style="font-size:1rem">A sequence whose <em>reciprocals form an arithmetic progression</em>. The hidden connection between fractions and music.</p>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="section-block">
+        <span class="step-label">Origin &amp; History</span>
+        <h3>Where did it come from?</h3>
+        <div class="history-card">
+          <p>The name "harmonic" comes from music. Ancient <strong style="color:var(--chalk)">Greek</strong> mathematicians — especially followers of <strong style="color:var(--chalk)">Pythagoras</strong> (c. 500 BCE) — noticed that pleasing musical intervals (octave, fifth, fourth) are produced by string lengths in ratios 1 : ½ : ⅓ : ¼ …, which is a harmonic progression.</p>
+          <p><strong style="color:var(--chalk)">Archytas of Tarentum</strong> (c. 400 BCE) formally introduced the harmonic mean alongside the arithmetic and geometric means. The study of HP directly led to the concept of <strong style="color:var(--chalk)">harmonic analysis</strong>, now a cornerstone of modern signal processing and Fourier theory.</p>
+        </div>
+      </div>
+
+      <!-- INTRO -->
+      <div class="section-block">
+        <span class="step-label">Introduction</span>
+        <h3>The core idea</h3>
+        <p>Take the AP: 2, 4, 6, 8 … Flip every term: ½, ¼, ⅙, ⅛ … The flipped sequence is an HP. You work with HPs by converting them into their AP first.</p>
+        <div class="seq-vis" id="hp-intro-seq"></div>
+        <p>The key insight: <strong style="color:var(--cyan)">1 ÷ HP term → AP term</strong>. Every HP formula derives from the corresponding AP formula applied to the reciprocals.</p>
+      </div>
+
+      <!-- FORMULAE -->
+      <div class="section-block">
+        <span class="step-label">Key Formulae</span>
+        <h3>nth Term &amp; Harmonic Mean</h3>
+        <div class="panel" style="padding:18px 20px">
+          <p style="font-family:var(--mono);font-size:0.72rem;color:var(--cyan);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px">Harmonic Progression — 1/a, 1/(a+d), 1/(a+2d), …</p>
+          <div class="formula-row"><span class="f-label">nth term (Tₙ)</span><span class="f-eq">Tₙ = 1 / [a + (n − 1) × d]</span></div>
+          <div class="formula-row"><span class="f-label">Where a, d are from</span><span class="f-eq">the underlying AP of reciprocals</span></div>
+          <div class="formula-row"><span class="f-label">Harmonic Mean (HM)</span><span class="f-eq">HM = 2ab / (a + b) &nbsp; (for two numbers a, b)</span></div>
+          <div class="formula-row"><span class="f-label">AM × HM = GM²</span><span class="f-eq">holds for any two positive numbers</span></div>
+          <div class="formula-row"><span class="f-label">No sum formula</span><span class="f-eq">No simple closed-form sum exists for HP</span></div>
+          <div class="formula-row" style="border-color:rgba(111,194,192,.4)"><span class="f-label" style="color:var(--cyan)">Find n (given Tₙ)</span><span class="f-eq" style="color:var(--cyan)">n = (1/Tₙ − a) / d + 1 &nbsp; (work via AP reciprocals)</span></div>
+        </div>
+      </div>
+
+      <!-- SIMPLE EXAMPLES -->
+      <div class="section-block">
+        <span class="step-label">Simple Example</span>
+        <h3>Step-by-step walkthrough</h3>
+        <div class="example-block">
+          <div class="ex-label">📘 Simple Example</div>
+          <div class="ex-q">HP: 1/2, 1/5, 1/8, 1/11, … — find the 7th term.</div>
+          <ul class="step-list">
+            <li><span class="step-num">①</span><span>Take reciprocals → AP: 2, 5, 8, 11, …</span></li>
+            <li><span class="step-num">②</span><span>For this AP: a = 2, d = 3</span></li>
+            <li><span class="step-num">③</span><span>7th AP term = 2 + 6 × 3 = 20</span></li>
+            <li><span class="step-num">④</span><span>7th HP term = 1 / 20 = <strong style="color:var(--chalk)">0.05</strong></span></li>
+          </ul>
+          <div class="ex-result">T₇ = 1/20 = 0.05</div>
+        </div>
+        <div class="example-block">
+          <div class="ex-label">📘 Harmonic Mean Example</div>
+          <div class="ex-q">Find the harmonic mean of 4 and 12.</div>
+          <ul class="step-list">
+            <li><span class="step-num">①</span><span>HM = 2ab / (a + b) = 2 × 4 × 12 / 16 = 96 / 16 = <strong style="color:var(--chalk)">6</strong></span></li>
+            <li><span class="step-num">②</span><span>Check: AM = 8, GM = √48 ≈ 6.93, AM × HM = 8 × 6 = 48 = GM² ✓</span></li>
+          </ul>
+          <div class="ex-result">HM(4, 12) = 6</div>
+        </div>
+      </div>
+
+      <!-- COMPLEX EXAMPLE -->
+      <div class="section-block">
+        <span class="step-label">Complex Example</span>
+        <h3>A harder problem</h3>
+        <div class="complex-block">
+          <div class="cx-label">🔑 Complex Example</div>
+          <div class="ex-q">The 4th term of an HP is 1/9 and the 7th term is 1/15. Find the HP and its 10th term.</div>
+          <ul class="step-list">
+            <li><span class="step-num" style="color:var(--gold)">①</span><span>Reciprocals form AP → T₄ (AP) = 9, T₇ (AP) = 15</span></li>
+            <li><span class="step-num" style="color:var(--gold)">②</span><span>T₇ − T₄ = 3d → 6 = 3d → d = 2</span></li>
+            <li><span class="step-num" style="color:var(--gold)">③</span><span>T₄ = a + 3d = 9 → a = 3</span></li>
+            <li><span class="step-num" style="color:var(--gold)">④</span><span>Underlying AP: 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, …</span></li>
+            <li><span class="step-num" style="color:var(--gold)">⑤</span><span>HP: 1/3, 1/5, 1/7, 1/9, …</span></li>
+            <li><span class="step-num" style="color:var(--gold)">⑥</span><span>T₁₀ (AP) = 3 + 9 × 2 = 21 → T₁₀ (HP) = <strong style="color:var(--chalk)">1/21</strong></span></li>
+          </ul>
+          <div class="ex-result" style="color:var(--gold)">HP: 1/3, 1/5, 1/7, … &nbsp;|&nbsp; T₁₀ = 1/21</div>
+        </div>
+      </div>
+
+      <!-- HP CALCULATOR -->
+      <div class="section-block">
+        <span class="step-label">Try it yourself</span>
+        <h3>HP Calculator</h3>
+        <div class="calc-card">
+          <div class="cc-title">Compute any HP — forward or reverse</div>
+
+          <div class="mode-tabs">
+            <button class="mode-tab active" onclick="hpMode('forward',this)">Find Tₙ</button>
+            <button class="mode-tab" onclick="hpMode('find-n-tn',this)">Find n (given Tₙ)</button>
+            <button class="mode-tab" onclick="hpMode('hm',this)">Harmonic Mean</button>
+          </div>
+
+          <!-- Forward mode -->
+          <div class="mode-panel active" id="hp-fwd">
+            <div class="calc-grid">
+              <div class="calc-field"><label>AP first term (a)</label><input type="number" id="hp-a" value="2"></div>
+              <div class="calc-field"><label>AP common diff (d)</label><input type="number" id="hp-d" value="3"></div>
+              <div class="calc-field"><label>No. of terms (n)</label><input type="number" id="hp-n" value="7" min="1"></div>
+            </div>
+            <button class="calc-btn" onclick="calcHP()">Calculate →</button>
+            <button class="calc-btn secondary" onclick="clearOut('hp-output')">Clear</button>
+          </div>
+
+          <!-- Find n given Tn -->
+          <div class="mode-panel" id="hp-fn-tn">
+            <p style="font-size:0.83rem;color:var(--chalk-dim);margin-bottom:10px">Enter the underlying AP's a and d, and the HP term value (e.g. 1/20 → enter 0.05).</p>
+            <div class="calc-grid">
+              <div class="calc-field"><label>AP first term (a)</label><input type="number" id="hp2-a" value="2"></div>
+              <div class="calc-field"><label>AP common diff (d)</label><input type="number" id="hp2-d" value="3"></div>
+              <div class="calc-field"><label>HP term value (Tₙ)</label><input type="number" id="hp2-tn" value="0.05" step="0.001"></div>
+            </div>
+            <button class="calc-btn" onclick="calcHPfindN()">Find n →</button>
+            <button class="calc-btn secondary" onclick="clearOut('hp-output')">Clear</button>
+          </div>
+
+          <!-- Harmonic Mean -->
+          <div class="mode-panel" id="hp-hm">
+            <div class="calc-grid">
+              <div class="calc-field"><label>Number a</label><input type="number" id="hp3-a" value="4"></div>
+              <div class="calc-field"><label>Number b</label><input type="number" id="hp3-b" value="12"></div>
+            </div>
+            <button class="calc-btn" onclick="calcHM()">Calculate HM →</button>
+            <button class="calc-btn secondary" onclick="clearOut('hp-output')">Clear</button>
+          </div>
+
+          <div class="calc-output" id="hp-output"></div>
+        </div>
+      </div>
+
+    </div><!-- /tab-hp -->
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>MATH.LAB — Number Patterns</span>
+    <span>AP · GP · HP</span>
+  </div>
+</footer>
+
+<script>
+// ── TAB SWITCHING ────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('.tab-btn');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.style.display = (panel.id === 'tab-' + target) ? '' : 'none';
+      });
+    });
+  });
+
+  // nav mobile toggle
+  const toggle = document.querySelector('.nav-toggle');
+  const links  = document.querySelector('.nav-links');
+  if (toggle && links) toggle.addEventListener('click', () => links.classList.toggle('open'));
+
+  // URL hash routing
+  const hash = location.hash.replace('#','');
+  if (['ap','gp','hp'].includes(hash)) {
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      if (b.dataset.tab === hash) b.click();
+    });
+  }
+
+  // Build intro sequence visualisers
+  buildSeqVis('ap-intro-seq', [{l:'T1',v:'₹100'},{l:'T2',v:'₹200'},{l:'T3',v:'₹300'},{l:'T4',v:'₹400'},{l:'T5',v:'₹500'}], 'cyan', 'd = +100 →');
+  buildSeqVis('gp-intro-seq', [{l:'T1',v:'1'},{l:'T2',v:'2'},{l:'T3',v:'4'},{l:'T4',v:'8'},{l:'T5',v:'16'},{l:'T6',v:'32'}], 'gold', '×2 →');
+  buildSeqVis('hp-intro-seq', [{l:'T1',v:'½'},{l:'T2',v:'¼'},{l:'T3',v:'⅙'},{l:'T4',v:'⅛'}], 'cyan', '÷2 →');
+});
+
+function buildSeqVis(id, terms, color, label) {
+  const el = document.getElementById(id); if (!el) return;
+  terms.forEach(t => {
+    const d = document.createElement('div');
+    d.className = 'term' + (color === 'gold' ? ' gold' : '');
+    d.innerHTML = `<span>${t.l} </span><strong>${t.v}</strong>`;
+    el.appendChild(d);
+  });
+  const d = document.createElement('div');
+  d.className = 'term';
+  d.style.borderStyle = 'dashed';
+  d.innerHTML = `<span style="color:var(--chalk-dim);font-size:.78rem">${label}</span>`;
+  el.appendChild(d);
+}
+
+// ── MODE HELPERS ────────────────────────────────────────────────────
+function switchModes(prefix, newId, btn) {
+  document.querySelectorAll(`[id^="${prefix}"]`).forEach(el => el.classList.remove('active'));
+  document.getElementById(newId).classList.add('active');
+  btn.closest('.mode-tabs').querySelectorAll('.mode-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  clearOut(prefix.replace('-','') + '-output');
+}
+function apMode(m, btn) { switchModes('ap-', m==='forward'?'ap-fwd':m==='find-n-tn'?'ap-fn-tn':'ap-fn-sn', btn); }
+function gpMode(m, btn) { switchModes('gp-', m==='forward'?'gp-fwd':'gp-fn-tn', btn); }
+function hpMode(m, btn) { switchModes('hp-', m==='forward'?'hp-fwd':m==='find-n-tn'?'hp-fn-tn':'hp-hm', btn); }
+
+function clearOut(id) {
+  const el = document.getElementById(id);
+  if (el) { el.style.display='none'; el.innerHTML=''; }
+}
+
+function showOut(id, html) {
+  const el = document.getElementById(id);
+  el.innerHTML = html; el.style.display = 'block';
+}
+
+// ── AP CALCULATORS ──────────────────────────────────────────────────
+function calcAP() {
+  const a = +document.getElementById('ap-a').value;
+  const d = +document.getElementById('ap-d').value;
+  const n = +document.getElementById('ap-n').value;
+  if (isNaN(a)||isNaN(d)||isNaN(n)||n<1) return;
+  const tn = a + (n-1)*d;
+  const sn = (n/2)*(2*a+(n-1)*d);
+  const seq = Array.from({length:Math.min(n,8)},(_,i)=>+(a+i*d).toFixed(4));
+  showOut('ap-output', `
+    <div class="out-row"><span class="out-label">nth term (T${n})</span><span class="out-val">${tn}</span></div>
+    <div class="out-row"><span class="out-label">Sum S${n}</span><span class="out-val">${sn}</span></div>
+    <div class="out-row"><span class="out-label">Last term</span><span class="out-val">${tn}</span></div>
+    <div class="seq-line"><span>Sequence: </span>${seq.join(', ')}${n>8?', …':''}</div>`);
+}
+
+function calcAPfindN_Tn() {
+  const a = +document.getElementById('ap2-a').value;
+  const d = +document.getElementById('ap2-d').value;
+  const tn= +document.getElementById('ap2-tn').value;
+  if (isNaN(a)||isNaN(d)||isNaN(tn)||d===0) {
+    showOut('ap-output','<div class="out-row"><span class="out-label" style="color:var(--rose)">d cannot be zero for finding n</span></div>'); return;
+  }
+  const n = (tn - a) / d + 1;
+  if (n < 1 || !Number.isInteger(Math.round(n*1000)/1000)) {
+    showOut('ap-output',`<div class="out-row"><span class="out-label" style="color:var(--rose)">No integer n exists for Tₙ = ${tn} with a=${a}, d=${d}</span></div>`); return;
+  }
+  const nInt = Math.round(n);
+  showOut('ap-output',`
+    <div class="out-row"><span class="out-label">n (position)</span><span class="out-val green">${nInt}</span></div>
+    <div class="out-row"><span class="out-label">Verification: T${nInt}</span><span class="out-val">${+(a+(nInt-1)*d).toFixed(6)}</span></div>
+    <div class="out-row"><span class="out-label">Sum up to T${nInt}</span><span class="out-val">${+((nInt/2)*(2*a+(nInt-1)*d)).toFixed(4)}</span></div>`);
+}
+
+function calcAPfindN_Sn() {
+  const a = +document.getElementById('ap3-a').value;
+  const d = +document.getElementById('ap3-d').value;
+  const sn= +document.getElementById('ap3-sn').value;
+  if (isNaN(a)||isNaN(d)||isNaN(sn)) return;
+  // Sn = n/2 * (2a + (n-1)d) → dn²/2 + n(a - d/2) - Sn = 0
+  const A = d/2, B = a - d/2, C = -sn;
+  if (Math.abs(A) < 1e-12) {
+    // d=0: Sn = n*a
+    if (Math.abs(a) < 1e-12) { showOut('ap-output','<div class="out-row"><span class="out-label" style="color:var(--rose)">Both a and d are zero</span></div>'); return; }
+    const n = sn/a;
+    if (n>0 && Math.abs(n-Math.round(n))<1e-6) { showOut('ap-output',`<div class="out-row"><span class="out-label">n</span><span class="out-val green">${Math.round(n)}</span></div>`); }
+    else showOut('ap-output','<div class="out-row"><span class="out-label" style="color:var(--rose)">No integer n found</span></div>');
+    return;
+  }
+  const disc = B*B - 4*A*C;
+  if (disc < 0) { showOut('ap-output','<div class="out-row"><span class="out-label" style="color:var(--rose)">No real solution for n</span></div>'); return; }
+  const n1 = (-B + Math.sqrt(disc))/(2*A);
+  const n2 = (-B - Math.sqrt(disc))/(2*A);
+  const valid = [n1,n2].filter(n => n>0 && Math.abs(n-Math.round(n))<1e-6).map(n=>Math.round(n));
+  if (!valid.length) { showOut('ap-output','<div class="out-row"><span class="out-label" style="color:var(--rose)">No positive integer n found</span></div>'); return; }
+  const nInt = valid[0];
+  showOut('ap-output',`
+    <div class="out-row"><span class="out-label">n (no. of terms)</span><span class="out-val green">${nInt}</span></div>
+    <div class="out-row"><span class="out-label">Verification: S${nInt}</span><span class="out-val">${+((nInt/2)*(2*a+(nInt-1)*d)).toFixed(4)}</span></div>
+    <div class="out-row"><span class="out-label">T${nInt} (last term)</span><span class="out-val">${+(a+(nInt-1)*d).toFixed(4)}</span></div>`);
+}
+
+// ── GP CALCULATORS ──────────────────────────────────────────────────
+function calcGP() {
+  const a = +document.getElementById('gp-a').value;
+  const r = +document.getElementById('gp-r').value;
+  const n = +document.getElementById('gp-n').value;
+  if (isNaN(a)||isNaN(r)||isNaN(n)||n<1) return;
+  const tn = a * Math.pow(r, n-1);
+  let sn;
+  if (Math.abs(r-1)<1e-9) sn = n*a;
+  else sn = a*(Math.pow(r,n)-1)/(r-1);
+  const sInf = Math.abs(r)<1 ? (a/(1-r)).toFixed(6) : '∞ (diverges, |r| ≥ 1)';
+  const seq = Array.from({length:Math.min(n,8)},(_,i)=>+(a*Math.pow(r,i)).toFixed(4));
+  showOut('gp-output',`
+    <div class="out-row"><span class="out-label">nth term (T${n})</span><span class="out-val">${tn.toFixed(4)}</span></div>
+    <div class="out-row"><span class="out-label">Sum S${n}</span><span class="out-val">${sn.toFixed(4)}</span></div>
+    <div class="out-row"><span class="out-label">S∞</span><span class="out-val ${Math.abs(r)<1?'green':'rose'}">${sInf}</span></div>
+    <div class="seq-line"><span>Sequence: </span>${seq.join(', ')}${n>8?', …':''}</div>`);
+}
+
+function calcGPfindN() {
+  const a  = +document.getElementById('gp2-a').value;
+  const r  = +document.getElementById('gp2-r').value;
+  const tn = +document.getElementById('gp2-tn').value;
+  if (isNaN(a)||isNaN(r)||isNaN(tn)||a===0||r<=0||r===1) {
+    showOut('gp-output','<div class="out-row"><span class="out-label" style="color:var(--rose)">a ≠ 0, r &gt; 0, r ≠ 1 required</span></div>'); return;
+  }
+  const ratio = tn/a;
+  if (ratio <= 0) {
+    showOut('gp-output','<div class="out-row"><span class="out-label" style="color:var(--rose)">Tₙ / a must be positive</span></div>'); return;
+  }
+  const n = Math.log(ratio)/Math.log(r) + 1;
+  if (n < 1 || Math.abs(n - Math.round(n)) > 1e-6) {
+    showOut('gp-output',`<div class="out-row"><span class="out-label" style="color:var(--rose)">No integer n gives Tₙ = ${tn} (n ≈ ${n.toFixed(4)})</span></div>`); return;
+  }
+  const nInt = Math.round(n);
+  showOut('gp-output',`
+    <div class="out-row"><span class="out-label">n (position)</span><span class="out-val green">${nInt}</span></div>
+    <div class="out-row"><span class="out-label">Verification: T${nInt}</span><span class="out-val">${+(a*Math.pow(r,nInt-1)).toFixed(6)}</span></div>
+    <div class="out-row"><span class="out-label">log formula</span><span class="out-val">log(${tn}/${a}) / log(${r}) + 1 = ${nInt}</span></div>`);
+}
+
+// ── HP CALCULATORS ──────────────────────────────────────────────────
+function calcHP() {
+  const a = +document.getElementById('hp-a').value;
+  const d = +document.getElementById('hp-d').value;
+  const n = +document.getElementById('hp-n').value;
+  if (isNaN(a)||isNaN(d)||isNaN(n)||n<1) return;
+  const apNth = a + (n-1)*d;
+  const tn = 1/apNth;
+  const apSeq = Array.from({length:Math.min(n,8)},(_,i)=>a+i*d);
+  const hpSeq = apSeq.map(x=>`1/${x}`);
+  showOut('hp-output',`
+    <div class="out-row"><span class="out-label">AP nth term</span><span class="out-val">${apNth}</span></div>
+    <div class="out-row"><span class="out-label">HP nth term (T${n})</span><span class="out-val">1/${apNth} ≈ ${tn.toFixed(6)}</span></div>
+    <div class="seq-line"><span>HP Sequence: </span>${hpSeq.join(', ')}${n>8?', …':''}</div>`);
+}
+
+function calcHPfindN() {
+  const a  = +document.getElementById('hp2-a').value;
+  const d  = +document.getElementById('hp2-d').value;
+  const tn = +document.getElementById('hp2-tn').value;
+  if (isNaN(a)||isNaN(d)||isNaN(tn)||tn===0||d===0) {
+    showOut('hp-output','<div class="out-row"><span class="out-label" style="color:var(--rose)">Tₙ ≠ 0, d ≠ 0 required</span></div>'); return;
+  }
+  // 1/Tn = a + (n-1)d → n = (1/Tn - a)/d + 1
+  const n = (1/tn - a)/d + 1;
+  if (n < 1 || Math.abs(n - Math.round(n)) > 1e-4) {
+    showOut('hp-output',`<div class="out-row"><span class="out-label" style="color:var(--rose)">No integer n gives that HP term (n ≈ ${n.toFixed(4)})</span></div>`); return;
+  }
+  const nInt = Math.round(n);
+  const apNth = a + (nInt-1)*d;
+  showOut('hp-output',`
+    <div class="out-row"><span class="out-label">n (position)</span><span class="out-val green">${nInt}</span></div>
+    <div class="out-row"><span class="out-label">AP nth term</span><span class="out-val">${apNth}</span></div>
+    <div class="out-row"><span class="out-label">Verification: T${nInt} (HP)</span><span class="out-val">1/${apNth} = ${+(1/apNth).toFixed(6)}</span></div>`);
+}
+
+function calcHM() {
+  const a = +document.getElementById('hp3-a').value;
+  const b = +document.getElementById('hp3-b').value;
+  if (isNaN(a)||isNaN(b)||(a+b)===0) return;
+  const hm = 2*a*b/(a+b);
+  const am = (a+b)/2;
+  const gm = Math.sqrt(Math.abs(a*b));
+  showOut('hp-output',`
+    <div class="out-row"><span class="out-label">Harmonic Mean (HM)</span><span class="out-val green">${hm.toFixed(6)}</span></div>
+    <div class="out-row"><span class="out-label">Arithmetic Mean (AM)</span><span class="out-val">${am.toFixed(4)}</span></div>
+    <div class="out-row"><span class="out-label">Geometric Mean (GM)</span><span class="out-val">${gm.toFixed(4)}</span></div>
+    <div class="out-row"><span class="out-label">AM × HM</span><span class="out-val">${(am*hm).toFixed(4)}</span></div>
+    <div class="out-row"><span class="out-label">GM²</span><span class="out-val">${(gm*gm).toFixed(4)}</span></div>
+    <div class="out-row"><span class="out-label">AM × HM = GM²?</span><span class="out-val ${Math.abs(am*hm - gm*gm)<0.001?'green':'rose'}">${Math.abs(am*hm - gm*gm)<0.001?'✓ Yes':'✗ Check inputs'}</span></div>`);
+}
+</script>
+
+</body>
+</html>

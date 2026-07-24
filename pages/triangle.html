@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Triangles — MATH.LAB</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Specific styles for triangle page problems */
+    .problem-box {
+      background: var(--navy-deep);
+      border-left: 3px solid var(--cyan);
+      padding: 16px;
+      margin: 12px 0;
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .solution-box {
+      background: rgba(92, 230, 160, 0.1);
+      border-left: 3px solid #5ce6a0;
+      padding: 16px;
+      margin: 12px 0;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      display: none;
+    }
+    .btn-solution {
+      background: transparent;
+      color: var(--cyan);
+      border: 1px solid var(--cyan);
+      padding: 6px 12px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      margin-top: 8px;
+    }
+    .btn-solution:hover {
+      background: rgba(111, 194, 192, 0.1);
+    }
+    .info-intro {
+      max-width: 80ch;
+      margin-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="wrap">
+      <a href="../index.html" class="brand">MATH<span class="dot">.</span>LAB</a>
+      <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="trigonometry.html">Trigonometry</a></li>
+        <li><a href="shapes.html">Shapes</a></li>
+        <li><a href="integration.html">Integration</a></li>
+        <li><a href="differentiation.html">Differentiation</a></li>
+        <li><a href="equations.html">Equations</a></li>
+        <li><a href="pythagoras.html">Pythagoras</a></li>
+        <li><a href="number-patterns.html">Number Patterns</a></li>
+        <li><a href="definmath.html">DefinMath</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">Geometric domain</span>
+      <h1>Triangles</h1>
+      <p class="lead">A three-sided polygon that forms the basis of all geometry. Explore its profound history, how to classify its shapes, and interact with it.</p>
+    </div>
+  </header>
+
+  <section class="stage" style="padding-top: 20px;">
+    <div class="wrap">
+       <div class="content-block info-intro">
+          <h2>Formulation & History</h2>
+          <p>A triangle is formulated by three non-collinear points connected by three line segments. The sum of its interior angles is always 180 degrees in Euclidean geometry. Its fundamental area calculation is: <code>Area = (1/2) × base × height</code>.</p>
+          <p><strong>Past:</strong> Ancient Egyptians utilized triangles (specifically the 3-4-5 right triangle) for land surveying and constructing the pyramids, long before formal theorems existed. The Greeks, including Pythagoras and Euclid, established rigorous mathematical proofs defining their properties.</p>
+          <p><strong>Present:</strong> Today, triangles are the structural backbone of engineering and architecture (seen in bridge trusses and geodesic domes). In computer graphics, every complex 3D shape is rendered using millions of tiny triangles, as three points are guaranteed to always lie on a single flat plane.</p>
+          <p><strong>Future:</strong> Triangles will continue to be essential in fields like topology, space exploration (triangulation for celestial navigation), and advanced molecular modeling (like the geometric structures of new materials).</p>
+       </div>
+    </div>
+  </section>
+
+  <nav class="subnav">
+    <div class="wrap">
+      <button class="tab-btn active" data-tab="equilateral">Equilateral</button>
+      <button class="tab-btn" data-tab="isosceles">Isosceles</button>
+      <button class="tab-btn" data-tab="scalene">Scalene</button>
+    </div>
+  </nav>
+
+  <section class="stage">
+    <div class="wrap">
+
+      <!-- EQUILATERAL TAB -->
+      <div id="tab-equilateral" class="tab-panel">
+        <div class="stage-grid">
+          <div class="panel" style="display:flex; flex-direction:column; align-items:center;">
+            <canvas id="canvas-eq" width="440" height="440"></canvas>
+            <div style="text-align:center; margin-top:20px; width: 80%;">
+              <label>Side Length: <span id="eq-side-val" class="mono">150</span></label><br>
+              <input type="range" id="eq-side" min="50" max="250" value="150" step="1" style="width: 100%;">
+            </div>
+          </div>
+          <div>
+            <div class="content-block">
+              <h2>Equilateral Triangle</h2>
+              <p>A triangle in which all three sides have the same length. Because the sides are equal, all three internal angles are also equal, each measuring exactly 60°.</p>
+              
+              <h3>Proof of Angles</h3>
+              <p>Let the sides be a = b = c. By the Law of Sines, <code>a/sin(A) = b/sin(B) = c/sin(C)</code>. Since a = b = c, then sin(A) = sin(B) = sin(C). For angles in a triangle, this implies A = B = C. Since A + B + C = 180°, each must be 60°.</p>
+              
+              <h3>Basic Problem</h3>
+              <div class="problem-box">
+                <p>Find the perimeter of an equilateral triangle with a side length of 5 cm.</p>
+                <button class="btn-solution" onclick="toggleSolution('sol-eq-1')">Show Solution</button>
+                <div id="sol-eq-1" class="solution-box">
+                  <p><strong>Solution:</strong> The perimeter is the sum of all sides. Since all 3 sides are equal: <br> Perimeter = 3 × 5 cm = 15 cm.</p>
+                </div>
+              </div>
+
+              <h3>Complex Problem</h3>
+              <div class="problem-box">
+                <p>Derive the area of an equilateral triangle with side length <em>s</em>, and find the area when <em>s = 10</em>.</p>
+                <button class="btn-solution" onclick="toggleSolution('sol-eq-2')">Show Solution</button>
+                <div id="sol-eq-2" class="solution-box">
+                  <p><strong>Solution:</strong> Drawing an altitude splits the triangle into two 30-60-90 right triangles. The base is <em>s/2</em> and the hypotenuse is <em>s</em>. By Pythagoras, height <em>h = √(s² - (s/2)²) = √(3s²/4) = s√3 / 2</em>.</p>
+                  <p>Area = (1/2) × base × height = (1/2) × s × (s√3 / 2) = (s²√3) / 4.</p>
+                  <p>For s = 10: Area = (100√3) / 4 = 25√3 ≈ 43.3 sq units.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ISOSCELES TAB -->
+      <div id="tab-isosceles" class="tab-panel" style="display:none;">
+        <div class="stage-grid">
+          <div class="panel" style="display:flex; flex-direction:column; align-items:center;">
+            <canvas id="canvas-iso" width="440" height="440"></canvas>
+            <div style="text-align:center; margin-top:20px; width: 80%;">
+              <label>Equal Sides: <span id="iso-side-val" class="mono">150</span></label><br>
+              <input type="range" id="iso-side" min="80" max="250" value="150" step="1" style="width: 100%; margin-bottom: 12px;">
+              <label>Base: <span id="iso-base-val" class="mono">100</span></label><br>
+              <input type="range" id="iso-base" min="50" max="250" value="100" step="1" style="width: 100%;">
+            </div>
+          </div>
+          <div>
+            <div class="content-block">
+              <h2>Isosceles Triangle</h2>
+              <p>A triangle that has at least two sides of equal length. The angles opposite the equal sides are also equal, known as the base angles.</p>
+              
+              <h3>Proof of Base Angles (Isosceles Theorem)</h3>
+              <p>Consider triangle ABC with AB = AC. Draw the angle bisector of ∠A, intersecting BC at D. Then in triangles ABD and ACD: AB = AC (given), ∠BAD = ∠CAD (by bisector), and AD = AD (common). By SAS congruence, ΔABD ≅ ΔACD. Therefore, ∠B = ∠C.</p>
+              
+              <h3>Basic Problem</h3>
+              <div class="problem-box">
+                <p>In an isosceles triangle, the two equal sides are 8 cm each, and the base is 6 cm. What is the perimeter?</p>
+                <button class="btn-solution" onclick="toggleSolution('sol-iso-1')">Show Solution</button>
+                <div id="sol-iso-1" class="solution-box">
+                  <p><strong>Solution:</strong> Perimeter = side1 + side2 + base <br>= 8 + 8 + 6 = 22 cm.</p>
+                </div>
+              </div>
+
+              <h3>Complex Problem</h3>
+              <div class="problem-box">
+                <p>An isosceles triangle has two equal sides of length 13 cm and a base of 10 cm. Find its area.</p>
+                <button class="btn-solution" onclick="toggleSolution('sol-iso-2')">Show Solution</button>
+                <div id="sol-iso-2" class="solution-box">
+                  <p><strong>Solution:</strong> Draw an altitude to the base. It bisects the base into two 5 cm segments, forming a right triangle with hypotenuse 13 and leg 5.</p>
+                  <p>Using Pythagoras: h² + 5² = 13² ➔ h² + 25 = 169 ➔ h² = 144 ➔ h = 12 cm.</p>
+                  <p>Area = (1/2) × base × height = (1/2) × 10 × 12 = 60 sq cm.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCALENE TAB -->
+      <div id="tab-scalene" class="tab-panel" style="display:none;">
+        <div class="stage-grid">
+          <div class="panel" style="display:flex; flex-direction:column; align-items:center;">
+            <canvas id="canvas-sca" width="440" height="440"></canvas>
+            <div style="text-align:center; margin-top:20px; width: 80%;">
+              <label>Side A (Right): <span id="sca-a-val" class="mono">120</span></label><br>
+              <input type="range" id="sca-a" min="50" max="250" value="120" step="1" style="width: 100%; margin-bottom: 12px;">
+              <label>Side B (Left): <span id="sca-b-val" class="mono">160</span></label><br>
+              <input type="range" id="sca-b" min="50" max="250" value="160" step="1" style="width: 100%; margin-bottom: 12px;">
+              <label>Side C (Base): <span id="sca-c-val" class="mono">200</span></label><br>
+              <input type="range" id="sca-c" min="50" max="280" value="200" step="1" style="width: 100%;">
+              <p id="sca-warning" style="color:var(--rose); font-size:0.85rem; display:none; margin-top: 10px;">Invalid Triangle! (Sum of two sides must be &gt; third side)</p>
+            </div>
+          </div>
+          <div>
+            <div class="content-block">
+              <h2>Scalene Triangle</h2>
+              <p>A triangle in which all three sides have different lengths, and consequently, all three internal angles have different measures.</p>
+              
+              <h3>Proof of Triangle Inequality Theorem</h3>
+              <p>For any triangle with sides a, b, and c, it must hold true that <code>a + b > c</code>, <code>a + c > b</code>, and <code>b + c > a</code>. The shortest distance between two points is a straight line. Thus, the length of one side must strictly be less than the combined lengths of the other two sides.</p>
+              
+              <h3>Basic Problem</h3>
+              <div class="problem-box">
+                <p>Can a triangle be formed with side lengths 3 cm, 4 cm, and 8 cm?</p>
+                <button class="btn-solution" onclick="toggleSolution('sol-sca-1')">Show Solution</button>
+                <div id="sol-sca-1" class="solution-box">
+                  <p><strong>Solution:</strong> We check the Triangle Inequality Theorem. Is 3 + 4 > 8? No, 7 is not greater than 8. Therefore, these sides cannot form a valid triangle.</p>
+                </div>
+              </div>
+
+              <h3>Complex Problem</h3>
+              <div class="problem-box">
+                <p>Find the area of a scalene triangle with side lengths 7 cm, 24 cm, and 25 cm using Heron's formula.</p>
+                <button class="btn-solution" onclick="toggleSolution('sol-sca-2')">Show Solution</button>
+                <div id="sol-sca-2" class="solution-box">
+                  <p><strong>Solution:</strong> First, calculate the semi-perimeter <em>s</em> = (7 + 24 + 25) / 2 = 56 / 2 = 28.</p>
+                  <p>Heron's Formula: Area = √(s(s-a)(s-b)(s-c))<br> = √(28 × (28-7) × (28-24) × (28-25))<br> = √(28 × 21 × 4 × 3)<br> = √(7056) = 84 sq cm.</p>
+                  <p><em>(Note: Since 7² + 24² = 25², it is also a right triangle!)</em></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>MATH.LAB — Triangles</span>
+      <a href="../index.html">← Back to home</a>
+    </div>
+  </footer>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/tabs.js"></script>
+  <script src="../js/triangle.js"></script>
+  <script>
+    function toggleSolution(id) {
+      const el = document.getElementById(id);
+      if (el.style.display === 'block') {
+        el.style.display = 'none';
+      } else {
+        el.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>

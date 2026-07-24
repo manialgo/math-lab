@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cubic Equations — MATH.LAB</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="wrap">
+    <a href="../index.html" class="brand">MATH<span class="dot">.</span>LAB</a>
+    <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="trigonometry.html">Trigonometry</a></li>
+      <li><a href="shapes.html">Shapes</a></li>
+      <li><a href="integration.html">Integration</a></li>
+      <li><a href="differentiation.html">Differentiation</a></li>
+      <li><a href="equations.html" class="active">Equations</a></li>
+      <li><a href="pythagoras.html">Pythagoras</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <span class="eyebrow"><a href="equations.html" style="color:var(--cyan);">Equations & Roots</a> / Cubic</span>
+    <h1>Cubic Equations</h1>
+    <p class="lead">One degree higher again — an S-shaped curve that can cross the x-axis up to three times. This is also where factorization stopped being enough, and mathematicians had to go looking for a general formula.</p>
+  </div>
+</header>
+
+<nav class="subnav">
+  <div class="wrap">
+    <button class="tab-btn active" data-tab="intro">Intro</button>
+    <button class="tab-btn" data-tab="grapher">Interactive Grapher</button>
+    <button class="tab-btn" data-tab="example">Worked Example</button>
+  </div>
+</nav>
+
+<section class="stage">
+  <div class="wrap">
+
+    <div id="tab-intro" class="tab-panel">
+      <div class="content-block" style="max-width:70ch;">
+        <h2>The idea</h2>
+        <p>A cubic equation in one variable has the general form:</p>
+        <div class="formula">ax³ + bx² + cx + d = 0   (a ≠ 0)</div>
+        <p>Its graph is an S-shaped curve with up to two turning points, so it can cross the x-axis once, twice (with a repeated root), or three times — meaning a cubic has up to <strong>three real roots</strong>.</p>
+        <p>Unlike linear or quadratic equations, most cubics don't factor neatly by inspection. The most practical approach in a classroom is the <strong>Rational Root Theorem</strong>: try small integer divisors of the constant term d as candidate roots, confirm one by substitution, then divide it out (see the Polynomials page for synthetic division) to reduce the cubic to a quadratic.</p>
+        <p>A true general formula does exist — Cardano's formula — but it's considerably more involved than the quadratic formula, which is part of why it took mathematicians until the 16th century to find it.</p>
+        <p>Switch to <strong>Interactive Grapher</strong> to change a, b, c, d and watch the curve — and its real roots — update live.</p>
+      </div>
+    </div>
+
+    <div id="tab-grapher" class="tab-panel" style="display:none;">
+      <div class="stage-grid">
+        <div class="panel">
+          <canvas id="cubic-canvas" width="440" height="380"></canvas>
+        </div>
+        <div>
+          <div class="controls">
+            <div class="control-row">
+              <label>a <span id="cubic-a-val" class="mono">1</span></label>
+              <input type="range" id="cubic-a" min="-2" max="2" value="1" step="0.5">
+            </div>
+            <div class="control-row">
+              <label>b <span id="cubic-b-val" class="mono">-6</span></label>
+              <input type="range" id="cubic-b" min="-10" max="10" value="-6" step="0.5">
+            </div>
+            <div class="control-row">
+              <label>c <span id="cubic-c-val" class="mono">11</span></label>
+              <input type="range" id="cubic-c" min="-15" max="15" value="11" step="0.5">
+            </div>
+            <div class="control-row">
+              <label>d <span id="cubic-d-val" class="mono">-6</span></label>
+              <input type="range" id="cubic-d" min="-15" max="15" value="-6" step="0.5">
+            </div>
+          </div>
+          <div class="readout">
+            <div class="stat"><div class="k">real roots found</div><div class="v" id="cubic-roots" style="font-size:0.95rem;">1.00, 2.00, 3.00</div></div>
+          </div>
+          <p style="font-size:0.78rem; margin-top:12px;">Roots are located numerically by scanning for sign changes, so very close-together roots may occasionally be missed.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-example" class="tab-panel" style="display:none;">
+      <div class="content-block" style="max-width:70ch;">
+        <h2>Worked example</h2>
+        <div class="formula">x³ − 6x² + 11x − 6 = 0</div>
+
+        <h3>Method 1 — Factorization (via trial root + synthetic division)</h3>
+        <p>By the Rational Root Theorem, try divisors of −6: ±1, ±2, ±3, ±6. Testing x = 1:</p>
+        <div class="formula">(1)³ − 6(1)² + 11(1) − 6 = 1 − 6 + 11 − 6 = 0 ✓</div>
+        <p>So (x − 1) is a factor. Dividing the cubic by (x − 1) using synthetic division gives a quotient of x² − 5x + 6, so:</p>
+        <div class="formula">x³ − 6x² + 11x − 6 = (x − 1)(x² − 5x + 6) = (x − 1)(x − 2)(x − 3)</div>
+        <p>Setting each factor to zero: <strong>x = 1, 2, 3</strong>.</p>
+
+        <h3>Method 2 — Using Cardano's formula</h3>
+        <p>First, depress the cubic by substituting x = t − b/3a, which removes the x² term. For ax³+bx²+cx+d, this gives an equation of the form t³ + pt + q = 0, where:</p>
+        <div class="formula">p = (3ac − b²) / 3a²      q = (2b³ − 9abc + 27a²d) / 27a³</div>
+        <p>The real root of the depressed cubic is then given by Cardano's formula:</p>
+        <div class="formula">t = ∛(−q/2 + √(q²/4 + p³/27)) + ∛(−q/2 − √(q²/4 + p³/27))</div>
+        <p>Substituting a = 1, b = −6, c = 11, d = −6 through this formula produces t = 0, and reversing the substitution x = t − b/3a = t + 2 gives x = 2 — one of the same three roots found by factorization, confirming the two methods agree. In practice, once one root is found, factorization is almost always the faster route for a cubic with rational roots; Cardano's formula matters most when no rational root exists at all.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>MATH.LAB — Cubic Equations</span>
+    <a href="equations.html">← Back to Equations & Roots</a>
+  </div>
+</footer>
+
+<script src="../js/nav.js"></script>
+<script src="../js/tabs.js"></script>
+<script src="../js/cubic.js"></script>
+</body>
+</html>

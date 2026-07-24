@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MATH.LAB — Interactive Mathematics</title>
+<meta name="description" content="An interactive mathematics lab: trigonometry, shapes, integration and differentiation, explained visually.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="wrap">
+    <a href="index.html" class="brand">MATH<span class="dot">.</span>LAB</a>
+    <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="pages/trigonometry.html">Trigonometry</a></li>
+      <li><a href="pages/shapes.html">Shapes</a></li>
+      <li><a href="pages/integration.html">Integration</a></li>
+      <li><a href="pages/differentiation.html">Differentiation</a></li>
+      <li><a href="pages/equations.html">Equations</a></li>
+      <li><a href="pages/pythagoras.html">Pythagoras</a></li>
+      <li><a href="pages/number-patterns.html">Number Patterns</a></li>
+      <li><a href="pages/definmath.html">DefinMath</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Interactive Mathematics Project - manialgo</span>
+      <h1>Math makes more sense when you can drag it.</h1>
+      <p class="lead">This is a small lab of ideas, not a textbook. Our role here is simple: take concepts that usually live in dense paragraphs and equations, and let you see and move them instead — one slider, one curve, one shape at a time.</p>
+      <div class="cta-row">
+        <a href="pages/shapes.html" class="btn btn-primary">Start with Shapes</a>
+        <a href="pages/trigonometry.html" class="btn btn-ghost">Explore Trigonometry</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <canvas id="hero-canvas" width="420" height="420"></canvas>
+      <div class="caption">
+        <span>sides, n = <span id="hero-n" class="n">3</span></span>
+        <span>as n → ∞, the polygon becomes a circle</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="topics">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">What's inside</span>
+      <h2>Ideas, explored by hand</h2>
+      <p>Each page here is a workbench: pick a shape, drag an angle, choose a bound, and watch the formula respond in real time.</p>
+    </div>
+    <div class="card-grid">
+      <a href="pages/trigonometry.html" class="card">
+        <span class="glyph">◐</span>
+        <h3>Trigonometry</h3>
+        <p>Drag a point around the unit circle and watch sine, cosine and tangent trace themselves out live.</p>
+      </a>
+      <a href="pages/shapes.html" class="card">
+        <span class="glyph">△</span>
+        <h3>Shapes</h3>
+        <p>Choose the number of sides — from a point to a circle — and see perimeter, area, and solid formulas update instantly.</p>
+      </a>
+      <a href="pages/integration.html" class="card">
+        <span class="glyph">∫</span>
+        <h3>Integration</h3>
+        <p>Pick a curve and a boundary, and watch the area underneath fill in as the definite integral is computed.</p>
+      </a>
+      <a href="pages/differentiation.html" class="card">
+        <span class="glyph">d/dx</span>
+        <h3>Differentiation</h3>
+        <p>Slide a point along a curve and watch the tangent line tilt — the derivative, made visible.</p>
+      </a>
+      <a href="pages/equations.html" class="card">
+        <span class="glyph">x=</span>
+        <h3>Equations &amp; Roots</h3>
+        <p>Work through linear, quadratic, cubic and general polynomial equations — factoring and formulas, side by side.</p>
+      </a>
+      <a href="pages/pythagoras.html" class="card">
+        <span class="glyph">△</span>
+        <h3>Pythagoras' Theorem</h3>
+        <p>Drag a live right triangle and watch a² + b² = c² hold true — plus the history and proof behind it.</p>
+      </a>
+      <a href="pages/number-patterns.html" class="card">
+        <span class="glyph">∑</span>
+        <h3>Number Patterns</h3>
+        <p>Arithmetic, Geometric, and Harmonic Progressions — nth term, sums, infinite series, and interactive calculators for each.</p>
+      </a>
+      <a href="pages/definmath.html" class="card">
+        <span class="glyph">⊞</span>
+        <h3>DefinMath</h3>
+        <p>Every topic on this site, alphabetically arranged. Search by name or jump to a letter — your index of all things MATH.LAB.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>MATH.LAB - manialgo's project</span>
+    <span>Made with <span style="color:#F5D547;">💛</span> in Mathematics by <a href="#" id="portfolio-link" style="color:var(--gold); text-decoration:underline;">manialgo</a></span>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script src="js/hero.js"></script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DefinMath — MATH.LAB</title>
+  <meta name="description"
+    content="Alphabetical index of every mathematical topic on MATH.LAB — click any entry to open its page.">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* ── page-specific additions ── */
+    .search-wrap {
+      margin: 28px 0 0;
+    }
+
+    .search-box {
+      width: 100%;
+      background: var(--navy-deep);
+      border: var(--border);
+      border-radius: var(--radius);
+      padding: 11px 14px 11px 40px;
+      color: var(--chalk);
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color .2s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236FC2C0' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 14px center;
+    }
+
+    .search-box:focus {
+      border-color: var(--gold-dim);
+    }
+
+    .search-box::placeholder {
+      color: var(--chalk-dim);
+    }
+
+    .alpha-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin: 20px 0 0;
+    }
+
+    .alpha-bar a {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--chalk-dim);
+      text-decoration: none;
+      padding: 4px 8px;
+      border: var(--border);
+      border-radius: var(--radius);
+      transition: all .15s;
+      line-height: 1;
+    }
+
+    .alpha-bar a.has-entry {
+      color: var(--cyan);
+      border-color: var(--cyan);
+    }
+
+    .alpha-bar a.has-entry:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+      background: rgba(232, 182, 90, .07);
+    }
+
+    .alpha-bar a.empty {
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    .letter-section {
+      margin-bottom: 36px;
+    }
+
+    .letter-section.hidden {
+      display: none;
+    }
+
+    .letter-heading {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .letter-badge {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--navy-deep);
+      background: var(--gold);
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .letter-divider {
+      flex: 1;
+      height: 1px;
+      background: var(--grid-line);
+    }
+
+    .entries {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .entry {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--grid-line);
+      text-decoration: none;
+      color: inherit;
+      gap: 12px;
+      transition: background .15s;
+      border-radius: var(--radius);
+      cursor: pointer;
+    }
+
+    .entry:last-child {
+      border-bottom: none;
+    }
+
+    .entry:hover {
+      background: rgba(111, 194, 192, .05);
+    }
+
+    .entry:hover .entry-title {
+      color: var(--cyan);
+    }
+
+    .entry:hover .entry-arrow {
+      opacity: 1;
+      color: var(--cyan);
+    }
+
+    .entry-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .entry-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--navy-deep);
+      border: var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+
+    .entry-title {
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 0.94rem;
+      color: var(--chalk);
+      transition: color .15s;
+    }
+
+    .entry-subtitle {
+      font-size: 0.78rem;
+      color: var(--chalk-dim);
+      margin-top: 2px;
+    }
+
+    .entry-arrow {
+      font-size: 1rem;
+      color: var(--chalk-dim);
+      opacity: 0;
+      transition: opacity .15s, color .15s;
+      flex-shrink: 0;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 60px 0;
+      color: var(--chalk-dim);
+      display: none;
+    }
+
+    .no-results .nr-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+
+    .no-results p {
+      font-size: 0.9rem;
+    }
+
+    .index-area {
+      padding: 32px 0 96px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="wrap">
+      <a href="../index.html" class="brand">MATH<span class="dot">.</span>LAB</a>
+      <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="trigonometry.html">Trigonometry</a></li>
+        <li><a href="shapes.html">Shapes</a></li>
+        <li><a href="integration.html">Integration</a></li>
+        <li><a href="differentiation.html">Differentiation</a></li>
+        <li><a href="equations.html">Equations</a></li>
+        <li><a href="pythagoras.html">Pythagoras</a></li>
+        <li><a href="number-patterns.html">Number Patterns</a></li>
+        <li><a href="definmath.html" class="active">DefinMath</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">// index of all topics</span>
+      <h1>DefinMath</h1>
+      <p class="lead">Every mathematical topic on this site — alphabetically arranged. Click any entry to open its page
+        in a new tab.</p>
+
+      <div class="search-wrap">
+        <input class="search-box" id="searchInput" type="text"
+          placeholder="Search topics… e.g. sine, polygon, integral" />
+      </div>
+
+      <div class="alpha-bar" id="alphaBar"></div>
+    </div>
+  </header>
+
+  <section class="index-area">
+    <div class="wrap">
+      <div id="mainContent">
+        <div class="no-results" id="noResults">
+          <div class="nr-icon">🔍</div>
+          <p>No topics match your search.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>MATH.LAB — DefinMath</span>
+      <span>Topics grow as the site grows</span>
+    </div>
+  </footer>
+
+  <script>
+    // ── SITE INDEX ──────────────────────────────────────────────────────────────
+    // Only topics that exist on the live site. Add entries here as new pages launch.
+    const PAGES = [
+      { title: "Arithmetic Progression", subtitle: "Common difference, nth term, sum to n terms, and finding n", icon: "⟶", href: "number-patterns.html#ap" },
+      { title: "Differentiation", subtitle: "Tangent lines, derivatives, and rate of change", icon: "∂", href: "differentiation.html" },
+      { title: "Geometric Progression", subtitle: "Common ratio, nth term, finite & infinite series", icon: "⬡", href: "number-patterns.html#gp" },
+      { title: "Harmonic Progression", subtitle: "Reciprocals, nth term, harmonic mean — linked to AP", icon: "♩", href: "number-patterns.html#hp" },
+      { title: "Integration", subtitle: "Bounded areas, Simpson's rule, and definite integrals", icon: "∫", href: "integration.html" },
+      { title: "Number Patterns", subtitle: "AP · GP · HP — progressions and series in one place", icon: "∑", href: "number-patterns.html" },
+      { title: "Pythagoras Theorem", subtitle: "Right triangles, hypotenuse, proofs and real-world use", icon: "△", href: "pythagoras.html" },
+      { title: "Shapes & Polygons", subtitle: "Perimeter, area, and prism volume for any polygon", icon: "⬟", href: "shapes.html" },
+      { title: "Triangles", subtitle: "Equilateral, Isosceles, Scalene — properties and interactive visualizers", icon: "◺", href: "triangle.html" },
+      { title: "Trigonometry", subtitle: "Unit circle, sin, cos, tan — interactive angle explorer", icon: "◎", href: "trigonometry.html" },
+    ];
+
+    const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+    function buildAlphaMap(pages) {
+      const map = {};
+      pages.forEach(p => {
+        const letter = p.title[0].toUpperCase();
+        if (!map[letter]) map[letter] = [];
+        map[letter].push(p);
+      });
+      Object.values(map).forEach(arr => arr.sort((a, b) => a.title.localeCompare(b.title)));
+      return map;
+    }
+
+    function renderAlphaBar(map) {
+      const bar = document.getElementById('alphaBar');
+      bar.innerHTML = '';
+      ALPHABET.forEach(letter => {
+        const a = document.createElement('a');
+        a.textContent = letter;
+        if (map[letter]) {
+          a.href = `#letter-${letter}`;
+          a.classList.add('has-entry');
+          a.title = `${map[letter].length} topic${map[letter].length > 1 ? 's' : ''}`;
+        } else {
+          a.href = '#';
+          a.classList.add('empty');
+        }
+        bar.appendChild(a);
+      });
+    }
+
+    function renderSections(map, query = '') {
+      const container = document.getElementById('mainContent');
+      container.querySelectorAll('.letter-section').forEach(el => el.remove());
+
+      let totalVisible = 0;
+      Object.keys(map).sort().forEach(letter => {
+        const filtered = map[letter].filter(p =>
+          !query ||
+          p.title.toLowerCase().includes(query) ||
+          p.subtitle.toLowerCase().includes(query)
+        );
+        if (!filtered.length) return;
+        totalVisible += filtered.length;
+
+        const section = document.createElement('div');
+        section.className = 'letter-section';
+        section.id = `letter-${letter}`;
+        section.innerHTML = `
+      <div class="letter-heading">
+        <div class="letter-badge">${letter}</div>
+        <div class="letter-divider"></div>
+      </div>
+      <div class="entries">${filtered.map(p => `
+          <div class="entry" onclick="window.open('${p.href}','_blank')">
+            <div class="entry-left">
+              <div class="entry-icon">${p.icon}</div>
+              <div>
+                <div class="entry-title">${hl(p.title, query)}</div>
+                <div class="entry-subtitle">${hl(p.subtitle, query)}</div>
+              </div>
+            </div>
+            <div class="entry-arrow">↗</div>
+          </div>`).join('')
+          }</div>`;
+        container.insertBefore(section, document.getElementById('noResults'));
+      });
+
+      document.getElementById('noResults').style.display = totalVisible === 0 ? 'block' : 'none';
+    }
+
+    function hl(text, query) {
+      if (!query) return text;
+      const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      return text.replace(re, '<mark style="background:rgba(232,182,90,.3);color:inherit;border-radius:2px">$1</mark>');
+    }
+
+    document.getElementById('searchInput').addEventListener('input', e => {
+      const q = e.target.value.toLowerCase().trim();
+      const fullMap = buildAlphaMap(PAGES);
+      if (!q) {
+        renderSections(fullMap); renderAlphaBar(fullMap);
+      } else {
+        const filtered = PAGES.filter(p =>
+          p.title.toLowerCase().includes(q) || p.subtitle.toLowerCase().includes(q)
+        );
+        const fMap = buildAlphaMap(filtered);
+        renderSections(fMap, q); renderAlphaBar(fMap);
+      }
+    });
+
+    // mobile nav
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.querySelector('.nav-toggle');
+      const links = document.querySelector('.nav-links');
+      if (toggle && links) toggle.addEventListener('click', () => links.classList.toggle('open'));
+    });
+
+    const fullMap = buildAlphaMap(PAGES);
+    renderAlphaBar(fullMap);
+    renderSections(fullMap);
+  </script>
+
+</body>
+
+</html>

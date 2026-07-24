@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pythagoras' Theorem — MATH.LAB</title>
+  <meta name="description" content="Interactive proof, history, and live area calculator for the Pythagorean theorem.">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="wrap">
+      <a href="../index.html" class="brand">MATH<span class="dot">.</span>LAB</a>
+      <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="trigonometry.html">Trigonometry</a></li>
+        <li><a href="shapes.html">Shapes</a></li>
+        <li><a href="integration.html">Integration</a></li>
+        <li><a href="differentiation.html">Differentiation</a></li>
+        <li><a href="equations.html">Equations</a></li>
+        <li><a href="pythagoras.html" class="active">Pythagoras</a></li>
+        <li><a href="number-patterns.html">Number Patterns</a></li>
+        <li><a href="definmath.html">DefinMath</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">Geometric domain</span>
+      <h1>Pythagoras' Theorem</h1>
+      <p class="lead">The oldest surviving relationship in geometry: in any right-angled triangle, the square built on
+        the hypotenuse always equals the sum of the squares built on the other two sides.</p>
+    </div>
+  </header>
+
+  <nav class="subnav">
+    <div class="wrap">
+      <button class="tab-btn active" data-tab="intro">Intro</button>
+      <button class="tab-btn" data-tab="history">History</button>
+      <button class="tab-btn" data-tab="proof">Proof</button>
+      <button class="tab-btn" data-tab="applications">Why It Matters</button>
+      <button class="tab-btn" data-tab="lab">Interactive Lab</button>
+    </div>
+  </nav>
+
+  <section class="stage">
+    <div class="wrap">
+
+      <!-- ================= INTRO ================= -->
+      <div id="tab-intro" class="tab-panel">
+        <div class="content-block" style="max-width:70ch;">
+          <div class="formula">a² + b² = c²</div>
+          <h2>What the theorem says</h2>
+          <p>Take any right triangle — one with a 90° corner — and call the two shorter sides (the legs) a and b, and
+            the longest side (opposite the right angle, the hypotenuse) c. The theorem states that the square of the
+            hypotenuse always equals the sum of the squares of the other two sides.</p>
+          <p>It's not just an equation to memorize — it's a statement about area. If you build an actual square on each
+            of the three sides of the triangle, the areas of the two smaller squares always add up exactly to the area
+            of the square on the hypotenuse, no matter the triangle's proportions, as long as the angle is a right
+            angle.</p>
+          <p>Use the tabs above to explore where this comes from: <strong>History</strong> traces it back nearly 4,000
+            years, <strong>Proof</strong> shows two different ways to see why it's true, <strong>Why It Matters</strong>
+            covers where it shows up today, and <strong>Interactive Lab</strong> lets you drag a live triangle and watch
+            the relationship hold.</p>
+        </div>
+      </div>
+
+      <!-- ================= HISTORY ================= -->
+      <div id="tab-history" class="tab-panel" style="display:none;">
+        <div class="content-block" style="max-width:72ch;">
+          <h2>A theorem older than its name</h2>
+          <p>Despite carrying his name, Pythagoras almost certainly did not discover this relationship — and there is no
+            surviving proof that he ever wrote one down himself. <a
+              href="https://www.britannica.com/science/Pythagorean-theorem" target="_blank" rel="noopener"
+              style="color:var(--cyan); text-decoration:underline;">Historians note</a> that the theorem was credited to
+            him largely because his followers at Croton attributed all new results to their founder under strict vows of
+            secrecy.</p>
+
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-date">c. 1900–1800 BCE</div>
+              <div class="timeline-title">Babylon &amp; Egypt</div>
+              <p class="timeline-desc">The relationship appears on the clay tablet <em>Plimpton 322</em>, roughly 4,000
+                years old — over a thousand years before Pythagoras was born.</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">c. 800–600 BCE</div>
+              <div class="timeline-title">India — the Śulba Sūtras</div>
+              <p class="timeline-desc">The Baudhāyana and Apastamba Śulba Sūtras describe the rule using a rope, for the
+                purpose of constructing perfectly square fire altars.</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">c. 570–495 BCE</div>
+              <div class="timeline-title">Pythagoras of Samos</div>
+              <p class="timeline-desc">Studied under Thales and Anaximander, travelled to Egypt and Babylon, then
+                founded a school in Croton — where the theorem was formally attached to his name.</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">1st century BCE</div>
+              <div class="timeline-title">China — Nine Chapters</div>
+              <p class="timeline-desc">The <em>Jiuzhang Suanshu</em> (Nine Chapters on the Mathematical Art) records an
+                elegant "gestalt" proof, rearranging squares purely by sight — no algebra required.</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">c. 300 BCE</div>
+              <div class="timeline-title">Euclid's Elements</div>
+              <p class="timeline-desc">Formalised as Proposition 47 of Book I — the rigorous, axiomatic proof that
+                became the standard reference for over two thousand years.</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">Today</div>
+              <div class="timeline-title">The World's Most-Proved Theorem</div>
+              <p class="timeline-desc">Guinness World Records recognises it as the most-proved theorem in mathematics,
+                with contributors ranging from Leonardo da Vinci to a young Albert Einstein to U.S. President James
+                Garfield.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= PROOF ================= -->
+      <div id="tab-proof" class="tab-panel" style="display:none;">
+        <div class="control-row" style="margin-bottom:18px;">
+          <label>Choose a proof</label>
+          <div class="chip-row" id="proof-chips">
+            <button class="chip active" data-proof="tiles">Square-Tiling Proof</button>
+            <button class="chip" data-proof="algebra">Algebraic Proof</button>
+          </div>
+        </div>
+        <div class="stage-grid">
+          <div class="panel">
+            <canvas id="proof-canvas" width="420" height="420"></canvas>
+          </div>
+          <div class="content-block step-list" id="proof-steps"><!-- filled by JS --></div>
+        </div>
+      </div>
+
+      <!-- ================= WHY IT MATTERS ================= -->
+      <div id="tab-applications" class="tab-panel" style="display:none;">
+        <div class="content-block">
+          <h2>Why it still matters</h2>
+          <div class="mini-grid">
+            <div class="card">
+              <span class="step">// 01</span>
+              <h3>Distance &amp; Navigation</h3>
+              <p>GPS, mapping, and every straight-line distance calculation between two points rests on this exact
+                relationship.</p>
+            </div>
+            <div class="card">
+              <span class="step">// 02</span>
+              <h3>Construction &amp; Engineering</h3>
+              <p>Builders use the 3-4-5 rule — a direct application — to square corners and verify right angles on site
+                without any instruments.</p>
+            </div>
+            <div class="card">
+              <span class="step">// 03</span>
+              <h3>Physics</h3>
+              <p>Extended to more dimensions, it underlies the energy–momentum relation in particle physics and the
+                field equations of relativity.</p>
+            </div>
+            <div class="card">
+              <span class="step">// 04</span>
+              <h3>Computer Graphics</h3>
+              <p>Every distance, collision check, and vector length in 2D/3D graphics and game engines is a Pythagorean
+                calculation.</p>
+            </div>
+            <div class="card">
+              <span class="step">// 05</span>
+              <h3>Trigonometry's Foundation</h3>
+              <p>The identity sin²θ + cos²θ = 1 — used throughout MATH.LAB's own <a href="trigonometry.html"
+                  style="color:var(--cyan);">Trigonometry page</a> — is the theorem in disguise on a unit circle.</p>
+            </div>
+            <div class="card">
+              <span class="step">// 06</span>
+              <h3>Everyday Estimation</h3>
+              <p>From sizing a TV screen to checking if a ladder safely reaches a wall, it turns a spatial question into
+                simple arithmetic.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= INTERACTIVE LAB ================= -->
+      <div id="tab-lab" class="tab-panel" style="display:none;">
+        <div class="content-block" style="max-width:74ch; margin-bottom:8px;">
+          <p>Drag any two sides freely and the third is solved live using a² + b² = c². Or lock two sides and slide the
+            third to watch the other two adjust automatically — the relationship holds in every direction, not just
+            "find the hypotenuse."</p>
+        </div>
+        <div class="stage-grid">
+          <div class="panel">
+            <canvas id="lab-canvas" width="440" height="380"></canvas>
+          </div>
+          <div>
+            <div class="control-row" style="margin-bottom:10px;">
+              <label>Lock two sides to solve the third</label>
+              <div class="chip-row" id="lock-chips">
+                <button class="chip" data-side="a">Lock a</button>
+                <button class="chip" data-side="b">Lock b</button>
+                <button class="chip" data-side="c">Lock c</button>
+              </div>
+            </div>
+
+            <div class="controls">
+              <div class="control-row" id="row-a">
+                <label>Side a <span class="mono" id="val-a">3.0</span></label>
+                <input type="range" id="slider-a" min="1" max="12" step="0.1" value="3">
+              </div>
+              <div class="control-row" id="row-b">
+                <label>Side b <span class="mono" id="val-b">4.0</span></label>
+                <input type="range" id="slider-b" min="1" max="12" step="0.1" value="4">
+              </div>
+              <div class="control-row" id="row-c">
+                <label>Hypotenuse c <span class="mono" id="val-c">5.0</span></label>
+                <input type="range" id="slider-c" min="1.42" max="17" step="0.1" value="5">
+              </div>
+            </div>
+
+            <div class="readout">
+              <div class="stat">
+                <div class="k">a²</div>
+                <div class="v" id="out-a2">9.00</div>
+              </div>
+              <div class="stat">
+                <div class="k">b²</div>
+                <div class="v" id="out-b2">16.00</div>
+              </div>
+              <div class="stat">
+                <div class="k">a² + b²</div>
+                <div class="v" id="out-sum">25.00</div>
+              </div>
+              <div class="stat">
+                <div class="k">c²</div>
+                <div class="v" id="out-c2">25.00</div>
+              </div>
+              <div class="stat">
+                <div class="k">triangle area</div>
+                <div class="v" id="out-area">6.00</div>
+              </div>
+            </div>
+            <p class="hint" id="readout-note" style="margin-top:10px;">Currently solving for c — the hypotenuse.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>MATH.LAB — Pythagoras' Theorem</span>
+      <a href="../index.html">← Back to home</a>
+    </div>
+  </footer>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/tabs.js"></script>
+  <script src="../js/pythagoras.js"></script>
+</body>
+
+</html>

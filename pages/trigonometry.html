@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trigonometry — MATH.LAB</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="wrap">
+      <a href="../index.html" class="brand">MATH<span class="dot">.</span>LAB</a>
+      <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="trigonometry.html" class="active">Trigonometry</a></li>
+        <li><a href="shapes.html">Shapes</a></li>
+        <li><a href="integration.html">Integration</a></li>
+        <li><a href="differentiation.html">Differentiation</a></li>
+        <li><a href="equations.html">Equations</a></li>
+        <li><a href="pythagoras.html">Pythagoras</a></li>
+        <li><a href="number-patterns.html">Number Patterns</a></li>
+        <li><a href="definmath.html">DefinMath</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">Trigonometric domain</span>
+      <h1>Trigonometry</h1>
+      <p class="lead">Drag the point around the circle, or use the angle slider. Sine, cosine and tangent are just the
+        shadows this point casts on the axes.</p>
+    </div>
+  </header>
+
+  <nav class="subnav">
+    <div class="wrap">
+      <button class="tab-btn active" data-tab="intro">Intro</button>
+      <button class="tab-btn" data-tab="circle">Unit Circle</button>
+      <button class="tab-btn" data-tab="identities">Identities</button>
+    </div>
+  </nav>
+
+  <section class="stage">
+    <div class="wrap">
+
+      <div id="tab-intro" class="tab-panel">
+        <div class="content-block" style="max-width:70ch;">
+          <h2>Where sine and cosine come from</h2>
+          <p>Take a circle of radius 1, centred at the origin, and a point that moves around its edge. The angle θ
+            (theta) is measured from the positive x-axis. As the point moves, its horizontal position is called
+            <strong>cosine of θ</strong>, and its vertical position is called <strong>sine of θ</strong>.
+          </p>
+          <p>That's really the whole idea — sine and cosine are just coordinates of a point going around a circle.
+            Tangent is the ratio of the two: <span class="mono">tan θ = sin θ / cos θ</span>, and it tells you the slope
+            of the line from the origin to that point.</p>
+          <p>Switch to the <strong>Unit Circle</strong> tab to move the point yourself and watch the values update.</p>
+        </div>
+      </div>
+
+      <div id="tab-circle" class="tab-panel" style="display:none;">
+        <div class="stage-grid">
+          <div class="panel">
+            <canvas id="trig-canvas" width="440" height="440"></canvas>
+            <p style="font-size:0.8rem; margin-top:10px; color:var(--chalk-dim);">Drag the gold point, or use the slider
+              below.</p>
+          </div>
+          <div>
+            <div class="controls">
+              <div class="control-row">
+                <label>Angle θ <span id="angle-deg" class="mono">45°</span></label>
+                <input type="range" id="angle-slider" min="0" max="360" value="45" step="1">
+              </div>
+            </div>
+            <div class="readout">
+              <div class="stat">
+                <div class="k">sin θ</div>
+                <div class="v" id="val-sin">0.707</div>
+              </div>
+              <div class="stat">
+                <div class="k">cos θ</div>
+                <div class="v" id="val-cos">0.707</div>
+              </div>
+              <div class="stat">
+                <div class="k">tan θ</div>
+                <div class="v" id="val-tan">1.000</div>
+              </div>
+              <div class="stat">
+                <div class="k">radians</div>
+                <div class="v" id="val-rad">0.785</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-identities" class="tab-panel" style="display:none;">
+        <div class="content-block" style="max-width:70ch;">
+          <h2>Core identities</h2>
+          <h3>Pythagorean identity</h3>
+          <div class="formula">sin²θ + cos²θ = 1</div>
+          <p>Follows directly from the unit circle — the point's coordinates always satisfy the circle's own equation x²
+            + y² = 1.</p>
+          <h3>Angle sum</h3>
+          <div class="formula">sin(A + B) = sin A cos B + cos A sin B</div>
+          <div class="formula">cos(A + B) = cos A cos B − sin A sin B</div>
+          <h3>Tangent</h3>
+          <div class="formula">tan θ = sin θ / cos θ</div>
+          <p>Undefined wherever cos θ = 0 — try dragging the point to 90° or 270° on the Unit Circle tab and watch the
+            tangent value.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>MATH.LAB — Trigonometry</span>
+      <a href="../index.html">← Back to home</a>
+    </div>
+  </footer>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/tabs.js"></script>
+  <script src="../js/trig.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shapes — MATH.LAB</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="wrap">
+      <a href="../index.html" class="brand">MATH<span class="dot">.</span>LAB</a>
+      <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="trigonometry.html">Trigonometry</a></li>
+        <li><a href="shapes.html" class="active">Shapes</a></li>
+        <li><a href="integration.html">Integration</a></li>
+        <li><a href="differentiation.html">Differentiation</a></li>
+        <li><a href="equations.html">Equations</a></li>
+        <li><a href="pythagoras.html">Pythagoras</a></li>
+        <li><a href="number-patterns.html">Number Patterns</a></li>
+        <li><a href="definmath.html">DefinMath</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">Geometric domain</span>
+      <h1>Shapes</h1>
+      <p class="lead">Pick a number of sides. Three gives you a triangle, four a square, and as the count climbs the
+        shape edges toward a circle — the same idea from the homepage, now in your hands.</p>
+    </div>
+  </header>
+
+  <nav class="subnav">
+    <div class="wrap">
+      <button class="tab-btn active" data-tab="intro">Intro</button>
+      <button class="tab-btn" data-tab="flat">Perimeter &amp; Area</button>
+      <button class="tab-btn" data-tab="solid">Prism (LSA / TSA / Volume)</button>
+    </div>
+  </nav>
+
+  <section class="stage">
+    <div class="wrap">
+
+      <div id="tab-intro" class="tab-panel">
+        <div class="content-block" style="max-width:70ch;">
+          <h2>What makes a shape "regular"?</h2>
+          <p>A regular polygon has sides of equal length and angles of equal measure — a triangle where all three sides
+            match, a square, a regular pentagon, and so on. As the number of sides n grows, a regular polygon starts to
+            look more and more like a circle, because each side gets shorter and the shape has less room to bend.</p>
+          <p>In the <strong>Perimeter &amp; Area</strong> tab you can choose n and watch both values recompute live. In
+            the <strong>Prism</strong> tab, that same flat shape gets stretched into a solid, and you'll see how Lateral
+            Surface Area, Total Surface Area and Volume all build directly out of the 2D formulas.</p>
+        </div>
+      </div>
+
+      <div id="tab-flat" class="tab-panel" style="display:none;">
+        <div class="stage-grid">
+          <div class="panel">
+            <canvas id="shape-canvas" width="440" height="440"></canvas>
+          </div>
+          <div>
+            <div class="control-row" style="margin-bottom:14px;">
+              <label>Number of sides</label>
+              <div class="chip-row" id="side-chips">
+                <button class="chip" data-n="3">3</button>
+                <button class="chip" data-n="4">4</button>
+                <button class="chip" data-n="5">5</button>
+                <button class="chip" data-n="6">6</button>
+                <button class="chip" data-n="7">7</button>
+                <button class="chip" data-n="8">8</button>
+                <button class="chip" data-n="10">10</button>
+                <button class="chip" data-n="12">12</button>
+                <button class="chip" data-n="32">Circle</button>
+              </div>
+            </div>
+            <div class="control-row">
+              <label>Side length (units) <span id="side-len-val" class="mono">100</span></label>
+              <input type="range" id="side-len" min="30" max="180" value="100" step="1">
+            </div>
+            <div class="readout">
+              <div class="stat">
+                <div class="k">shape</div>
+                <div class="v" id="shape-name">Triangle</div>
+              </div>
+              <div class="stat">
+                <div class="k">perimeter</div>
+                <div class="v" id="shape-perim">300</div>
+              </div>
+              <div class="stat">
+                <div class="k">area</div>
+                <div class="v" id="shape-area">4330</div>
+              </div>
+            </div>
+            <div class="content-block">
+              <h3>Formula used</h3>
+              <div class="formula" id="shape-formula">Perimeter = n × side</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-solid" class="tab-panel" style="display:none;">
+        <div class="stage-grid">
+          <div class="panel">
+            <canvas id="prism-canvas" width="440" height="440"></canvas>
+          </div>
+          <div>
+            <div class="control-row" style="margin-bottom:14px;">
+              <label>Base sides</label>
+              <div class="chip-row" id="side-chips-solid">
+                <button class="chip" data-n="3">3</button>
+                <button class="chip" data-n="4">4</button>
+                <button class="chip" data-n="5">5</button>
+                <button class="chip" data-n="6">6</button>
+                <button class="chip" data-n="8">8</button>
+                <button class="chip" data-n="32">Circle</button>
+              </div>
+            </div>
+            <div class="control-row">
+              <label>Height <span id="prism-height-val" class="mono">120</span></label>
+              <input type="range" id="prism-height" min="40" max="220" value="120" step="1">
+            </div>
+            <div class="readout">
+              <div class="stat">
+                <div class="k">LSA</div>
+                <div class="v" id="prism-lsa">0</div>
+              </div>
+              <div class="stat">
+                <div class="k">TSA</div>
+                <div class="v" id="prism-tsa">0</div>
+              </div>
+              <div class="stat">
+                <div class="k">Volume</div>
+                <div class="v" id="prism-vol">0</div>
+              </div>
+            </div>
+            <div class="content-block">
+              <h3>How these are built</h3>
+              <div class="formula">LSA = perimeter × height</div>
+              <div class="formula">TSA = LSA + 2 × (base area)</div>
+              <div class="formula">Volume = (base area) × height</div>
+              <p style="font-size:0.85rem;">When base sides = "Circle", this becomes a cylinder: LSA = 2πr·h, TSA =
+                2πr·h + 2πr², Volume = πr²h.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>MATH.LAB — Shapes</span>
+      <a href="../index.html">← Back to home</a>
+    </div>
+  </footer>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/tabs.js"></script>
+  <script src="../js/shapes.js"></script>
+</body>
+
+</html>

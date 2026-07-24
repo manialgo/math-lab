@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polynomials — MATH.LAB</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="wrap">
+    <a href="../index.html" class="brand">MATH<span class="dot">.</span>LAB</a>
+    <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="trigonometry.html">Trigonometry</a></li>
+      <li><a href="shapes.html">Shapes</a></li>
+      <li><a href="integration.html">Integration</a></li>
+      <li><a href="differentiation.html">Differentiation</a></li>
+      <li><a href="equations.html" class="active">Equations</a></li>
+      <li><a href="pythagoras.html">Pythagoras</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <span class="eyebrow"><a href="equations.html" style="color:var(--cyan);">Equations & Roots</a> / Polynomials</span>
+    <h1>Polynomials</h1>
+    <p class="lead">Linear, quadratic, and cubic equations are all specific cases of one general idea: a polynomial. This page covers the tool that ties them together — synthetic division — for factoring a polynomial once you already have one root.</p>
+  </div>
+</header>
+
+<nav class="subnav">
+  <div class="wrap">
+    <button class="tab-btn active" data-tab="intro">Intro</button>
+    <button class="tab-btn" data-tab="division">Synthetic Division</button>
+    <button class="tab-btn" data-tab="example">Worked Example</button>
+  </div>
+</nav>
+
+<section class="stage">
+  <div class="wrap">
+
+    <div id="tab-intro" class="tab-panel">
+      <div class="content-block" style="max-width:70ch;">
+        <h2>What is a polynomial?</h2>
+        <p>A polynomial in x is any expression built from whole-number powers of x, each multiplied by a coefficient and added together:</p>
+        <div class="formula">aₙxⁿ + aₙ₋₁xⁿ⁻¹ + ... + a₁x + a₀</div>
+        <p>The highest power n is called the <strong>degree</strong>. A degree-1 polynomial set to zero is a linear equation; degree 2 is quadratic; degree 3 is cubic. A polynomial of degree n has at most n real roots.</p>
+        <h3>Why synthetic division matters</h3>
+        <p>Once you've found one root of a polynomial — by trial, by the Rational Root Theorem, or by inspection — you'd like to "divide it out" so you're left with a simpler polynomial of one lower degree, which is easier to solve. <strong>Synthetic division</strong> is a fast, compact shortcut for exactly that division, when dividing by a factor of the form (x − r).</p>
+        <p>It uses only the coefficients — no x's written out at all — and a short chain of multiply-and-add steps. Try it yourself in the <strong>Synthetic Division</strong> tab.</p>
+      </div>
+    </div>
+
+    <div id="tab-division" class="tab-panel" style="display:none;">
+      <div class="stage-grid">
+        <div class="panel">
+          <div class="control-row" style="margin-bottom:14px;">
+            <label>Degree</label>
+            <div class="chip-row" id="degree-chips">
+              <button class="chip" data-deg="2">Degree 2</button>
+              <button class="chip" data-deg="3">Degree 3</button>
+              <button class="chip" data-deg="4">Degree 4</button>
+            </div>
+          </div>
+          <div class="control-row">
+            <label>Coefficients (highest power first)</label>
+            <div id="coeff-inputs" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;"></div>
+          </div>
+          <div class="control-row" style="margin-top:16px;">
+            <label>Candidate root, r <span id="root-val" class="mono">1</span></label>
+            <input type="range" id="root-slider" min="-6" max="6" value="1" step="1">
+          </div>
+          <div class="control-row" style="margin-top:6px;">
+            <p style="font-size:0.8rem;">Dividing by (x − r). Set r to a value you suspect is a root, then read the remainder below.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <h3 style="margin-top:0;">Synthetic division table</h3>
+          <div id="synthetic-table" style="overflow-x:auto;"></div>
+          <div class="readout" style="margin-top:18px;">
+            <div class="stat"><div class="k">quotient</div><div class="v mono" id="quotient-display" style="font-size:0.95rem;">—</div></div>
+            <div class="stat"><div class="k">remainder</div><div class="v" id="remainder-display">0</div></div>
+            <div class="stat"><div class="k">is (x − r) a factor?</div><div class="v" id="factor-display" style="font-size:0.95rem;">Yes</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-example" class="tab-panel" style="display:none;">
+      <div class="content-block" style="max-width:70ch;">
+        <h2>Worked example</h2>
+        <p>Divide <span class="mono">x³ − 6x² + 11x − 6</span> by <span class="mono">(x − 1)</span> using synthetic division.</p>
+        <p>Write down just the coefficients: 1, −6, 11, −6. Bring down the first coefficient, then repeatedly multiply by the root (1) and add to the next coefficient:</p>
+        <div class="formula">1  |  1   −6    11    −6
+   |       1    −5     6
+   ----------------------
+      1   −5     6     0</div>
+        <p>The bottom row reads: quotient coefficients <span class="mono">1, −5, 6</span>, and a final remainder of <span class="mono">0</span>.</p>
+        <p>A remainder of 0 confirms (x − 1) really is a factor, and the quotient is one degree lower:</p>
+        <div class="formula">x³ − 6x² + 11x − 6 = (x − 1)(x² − 5x + 6)</div>
+        <p>From here, the quadratic factor (x² − 5x + 6) can be solved directly — by factorization it's (x − 2)(x − 3) — giving the full set of roots: <strong>x = 1, 2, 3</strong>. This is exactly the shortcut used on the Cubic Equations page.</p>
+        <p>Try loading these same numbers into the <strong>Synthetic Division</strong> tab: pick Degree 3, enter coefficients 1, −6, 11, −6, and set r = 1.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>MATH.LAB — Polynomials</span>
+    <a href="equations.html">← Back to Equations & Roots</a>
+  </div>
+</footer>
+
+<script src="../js/nav.js"></script>
+<script src="../js/tabs.js"></script>
+<script src="../js/polynomials.js"></script>
+</body>
+</html>

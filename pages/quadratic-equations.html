@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quadratic Equations — MATH.LAB</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="wrap">
+    <a href="../index.html" class="brand">MATH<span class="dot">.</span>LAB</a>
+    <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="trigonometry.html">Trigonometry</a></li>
+      <li><a href="shapes.html">Shapes</a></li>
+      <li><a href="integration.html">Integration</a></li>
+      <li><a href="differentiation.html">Differentiation</a></li>
+      <li><a href="equations.html" class="active">Equations</a></li>
+      <li><a href="pythagoras.html">Pythagoras</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <span class="eyebrow"><a href="equations.html" style="color:var(--cyan);">Equations & Roots</a> / Quadratic</span>
+    <h1>Quadratic Equations</h1>
+    <p class="lead">One degree higher than linear — now the graph is a curve, a parabola, and it can cross the x-axis twice, touch it once, or miss it entirely.</p>
+  </div>
+</header>
+
+<nav class="subnav">
+  <div class="wrap">
+    <button class="tab-btn active" data-tab="intro">Intro</button>
+    <button class="tab-btn" data-tab="grapher">Interactive Grapher</button>
+    <button class="tab-btn" data-tab="example">Worked Example</button>
+  </div>
+</nav>
+
+<section class="stage">
+  <div class="wrap">
+
+    <div id="tab-intro" class="tab-panel">
+      <div class="content-block" style="max-width:70ch;">
+        <h2>The idea</h2>
+        <p>A quadratic equation in one variable has the general form:</p>
+        <div class="formula">ax² + bx + c = 0   (a ≠ 0)</div>
+        <p>Its graph is a parabola — a smooth U-shaped (or ∩-shaped, if a is negative) curve. Because it bends, it can cross the x-axis at up to two points, giving up to two real roots. Whether it has two, one, or zero real roots depends on a single quantity called the <strong>discriminant</strong>:</p>
+        <div class="formula">D = b² − 4ac</div>
+        <p>If D &gt; 0, two distinct real roots. If D = 0, one repeated real root (the parabola just touches the axis). If D &lt; 0, no real roots — the parabola never reaches the x-axis at all.</p>
+        <p>Switch to <strong>Interactive Grapher</strong> to change a, b, c and watch the parabola — and the discriminant case — update live.</p>
+      </div>
+    </div>
+
+    <div id="tab-grapher" class="tab-panel" style="display:none;">
+      <div class="stage-grid">
+        <div class="panel">
+          <canvas id="quad-canvas" width="440" height="380"></canvas>
+        </div>
+        <div>
+          <div class="controls">
+            <div class="control-row">
+              <label>a <span id="quad-a-val" class="mono">1</span></label>
+              <input type="range" id="quad-a" min="-3" max="3" value="1" step="0.5">
+            </div>
+            <div class="control-row">
+              <label>b <span id="quad-b-val" class="mono">-1</span></label>
+              <input type="range" id="quad-b" min="-10" max="10" value="-1" step="0.5">
+            </div>
+            <div class="control-row">
+              <label>c <span id="quad-c-val" class="mono">-6</span></label>
+              <input type="range" id="quad-c" min="-10" max="10" value="-6" step="0.5">
+            </div>
+          </div>
+          <div class="readout">
+            <div class="stat"><div class="k">discriminant</div><div class="v" id="quad-disc">25.00</div></div>
+            <div class="stat"><div class="k">case</div><div class="v" id="quad-case" style="font-size:0.95rem;">2 real roots</div></div>
+            <div class="stat"><div class="k">roots</div><div class="v" id="quad-roots" style="font-size:0.95rem;">3.00, −2.00</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-example" class="tab-panel" style="display:none;">
+      <div class="content-block" style="max-width:70ch;">
+        <h2>Worked example</h2>
+        <div class="formula">x² − 5x + 6 = 0</div>
+
+        <h3>Method 1 — Factorization</h3>
+        <p>Find two numbers that multiply to give c (6) and add to give b (−5): those numbers are −2 and −3.</p>
+        <div class="formula">(x − 2)(x − 3) = 0</div>
+        <p>Set each factor to zero:</p>
+        <div class="formula">x − 2 = 0  or  x − 3 = 0  ⟶  x = 2  or  x = 3</div>
+
+        <h3>Method 2 — Using the quadratic formula</h3>
+        <p>Here a = 1, b = −5, c = 6. Apply the formula:</p>
+        <div class="formula">x = [−b ± √(b² − 4ac)] / 2a</div>
+        <div class="formula">x = [5 ± √(25 − 24)] / 2 = [5 ± 1] / 2</div>
+        <div class="formula">x = 3   or   x = 2</div>
+
+        <p>Both methods agree: <strong>x = 2</strong> and <strong>x = 3</strong>.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>MATH.LAB — Quadratic Equations</span>
+    <a href="equations.html">← Back to Equations & Roots</a>
+  </div>
+</footer>
+
+<script src="../js/nav.js"></script>
+<script src="../js/tabs.js"></script>
+<script src="../js/quadratic.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linear Equations — MATH.LAB</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="wrap">
+    <a href="../index.html" class="brand">MATH<span class="dot">.</span>LAB</a>
+    <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="trigonometry.html">Trigonometry</a></li>
+      <li><a href="shapes.html">Shapes</a></li>
+      <li><a href="integration.html">Integration</a></li>
+      <li><a href="differentiation.html">Differentiation</a></li>
+      <li><a href="equations.html" class="active">Equations</a></li>
+      <li><a href="pythagoras.html">Pythagoras</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <span class="eyebrow"><a href="equations.html" style="color:var(--cyan);">Equations & Roots</a> / Linear</span>
+    <h1>Linear Equations</h1>
+    <p class="lead">The simplest equation shape — one unknown raised to the first power. Its graph is a straight line, and a straight line crosses the x-axis exactly once, so there's exactly one root.</p>
+  </div>
+</header>
+
+<nav class="subnav">
+  <div class="wrap">
+    <button class="tab-btn active" data-tab="intro">Intro</button>
+    <button class="tab-btn" data-tab="grapher">Interactive Grapher</button>
+    <button class="tab-btn" data-tab="example">Worked Example</button>
+  </div>
+</nav>
+
+<section class="stage">
+  <div class="wrap">
+
+    <div id="tab-intro" class="tab-panel">
+      <div class="content-block" style="max-width:70ch;">
+        <h2>The idea</h2>
+        <p>A linear equation in one variable has the general form:</p>
+        <div class="formula">ax + b = 0   (a ≠ 0)</div>
+        <p>Here, a and b are fixed numbers (coefficients), and x is the unknown. Because the highest power of x is 1, its graph is always a straight line — no curve, no bend. A non-horizontal straight line crosses the x-axis at exactly one point, which is why a linear equation has exactly one root.</p>
+        <p>Solving it is a matter of isolating x on one side:</p>
+        <div class="formula">ax = −b  ⟶  x = −b / a</div>
+        <p>Switch to <strong>Interactive Grapher</strong> to see how changing a and b slides and tilts the line, and moves the root.</p>
+      </div>
+    </div>
+
+    <div id="tab-grapher" class="tab-panel" style="display:none;">
+      <div class="stage-grid">
+        <div class="panel">
+          <canvas id="linear-canvas" width="440" height="380"></canvas>
+        </div>
+        <div>
+          <div class="controls">
+            <div class="control-row">
+              <label>a (slope) <span id="lin-a-val" class="mono">2</span></label>
+              <input type="range" id="lin-a" min="-5" max="5" value="2" step="0.5">
+            </div>
+            <div class="control-row">
+              <label>b (constant) <span id="lin-b-val" class="mono">-4</span></label>
+              <input type="range" id="lin-b" min="-10" max="10" value="-4" step="0.5">
+            </div>
+          </div>
+          <div class="readout">
+            <div class="stat"><div class="k">equation</div><div class="v mono" id="lin-eq" style="font-size:1rem;">2x − 4 = 0</div></div>
+            <div class="stat"><div class="k">root x</div><div class="v" id="lin-root">2.00</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-example" class="tab-panel" style="display:none;">
+      <div class="content-block" style="max-width:70ch;">
+        <h2>Worked example</h2>
+        <div class="formula">2x − 6 = 0</div>
+
+        <h3>Method 1 — Factorization</h3>
+        <p>Pull out the common factor of 2:</p>
+        <div class="formula">2(x − 3) = 0</div>
+        <p>A product is zero only if one of its factors is zero. Since 2 ≠ 0, it must be that:</p>
+        <div class="formula">x − 3 = 0  ⟶  x = 3</div>
+
+        <h3>Method 2 — Using the formula</h3>
+        <p>Here a = 2 and b = −6. Apply x = −b / a directly:</p>
+        <div class="formula">x = −(−6) / 2 = 6 / 2 = 3</div>
+
+        <p>Both methods agree: <strong>x = 3</strong>. Check by substituting back: 2(3) − 6 = 0 ✓</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>MATH.LAB — Linear Equations</span>
+    <a href="equations.html">← Back to Equations & Roots</a>
+  </div>
+</footer>
+
+<script src="../js/nav.js"></script>
+<script src="../js/tabs.js"></script>
+<script src="../js/linear.js"></script>
+</body>
+</html>

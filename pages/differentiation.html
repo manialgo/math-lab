@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Differentiation — MATH.LAB</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="wrap">
+      <a href="../index.html" class="brand">MATH<span class="dot">.</span>LAB</a>
+      <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="trigonometry.html">Trigonometry</a></li>
+        <li><a href="shapes.html">Shapes</a></li>
+        <li><a href="integration.html">Integration</a></li>
+        <li><a href="differentiation.html" class="active">Differentiation</a></li>
+        <li><a href="equations.html">Equations</a></li>
+        <li><a href="pythagoras.html">Pythagoras</a></li>
+        <li><a href="number-patterns.html">Number Patterns</a></li>
+        <li><a href="definmath.html">DefinMath</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">Calculus domain</span>
+      <h1>Differentiation</h1>
+      <p class="lead">Slide the point along the curve. The line touching it at exactly one point is the tangent — its
+        slope is the derivative, the curve's rate of change right there.</p>
+    </div>
+  </header>
+
+  <nav class="subnav">
+    <div class="wrap">
+      <button class="tab-btn active" data-tab="intro">Intro</button>
+      <button class="tab-btn" data-tab="work">Tangent Line</button>
+    </div>
+  </nav>
+
+  <section class="stage">
+    <div class="wrap">
+
+      <div id="tab-intro" class="tab-panel">
+        <div class="content-block" style="max-width:70ch;">
+          <h2>What a derivative actually measures</h2>
+          <p>Pick two points on a curve and draw a line through them — that's a secant, and its slope is the average
+            rate of change between the two points. Now slide the second point closer and closer to the first. The secant
+            line rotates and settles into the <strong>tangent line</strong>, and its slope is the derivative at that
+            single point:</p>
+          <div class="formula">f'(x) = lim(h→0) [f(x+h) − f(x)] / h</div>
+          <p>It's the instantaneous steepness of the curve — how fast f is changing right at x, not on average, but at
+            that exact instant.</p>
+        </div>
+      </div>
+
+      <div id="tab-work" class="tab-panel" style="display:none;">
+        <div class="stage-grid">
+          <div class="panel">
+            <canvas id="diff-canvas" width="440" height="380"></canvas>
+          </div>
+          <div>
+            <div class="control-row" style="margin-bottom:14px;">
+              <label>Function</label>
+              <div class="chip-row" id="fn-chips">
+                <button class="chip" data-fn="x2">x²</button>
+                <button class="chip" data-fn="sin">3·sin(x)</button>
+                <button class="chip" data-fn="cubic">x³/20</button>
+                <button class="chip" data-fn="linear">0.5x + 2</button>
+              </div>
+            </div>
+            <div class="control-row">
+              <label>Point x₀ <span id="x0-val" class="mono">1.0</span></label>
+              <input type="range" id="x0-slider" min="-8" max="8" value="1" step="0.1">
+            </div>
+            <div class="readout">
+              <div class="stat">
+                <div class="k">f(x₀)</div>
+                <div class="v" id="fx0-value">1.00</div>
+              </div>
+              <div class="stat">
+                <div class="k">f'(x₀)</div>
+                <div class="v" id="slope-value">2.00</div>
+              </div>
+            </div>
+            <div class="content-block">
+              <h3>Tangent line equation</h3>
+              <div class="formula" id="tangent-eq">y = 2.00(x − 1.00) + 1.00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>MATH.LAB — Differentiation</span>
+      <a href="../index.html">← Back to home</a>
+    </div>
+  </footer>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/tabs.js"></script>
+  <script src="../js/differentiation.js"></script>
+</body>
+
+</html>
